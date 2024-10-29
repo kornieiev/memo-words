@@ -6,70 +6,72 @@
 }
 
 :root {
-  --main-background-color: #000;
-  --background-color: #2a2a2a;
-  --logo-color: #fcecbe;
-  --accent-font-color: #a5a5a3;
-  --font-color: rgba(165, 165, 163, 0.6);
-
+  /* bg colors */
+  --bg-main-color: #000;
+  --bg-color: #2a2a2a;
   --btn-bg-color: #a5a5a3;
-  --btn-font-color: #fcecbe;
+  --btn-bg-color-action: rgba(196, 196, 196, 0.6);
+  --input-bg-color: #7d7d7d;
+  --input-second-bg-color: #c4c4c4;
 
-  --btn-action-bg-color: rgba(196, 196, 196, 0.6);
-  --btn-action-font-color: #fcecbe;
+  /* font colors */
+  --font-accent-color: #a5a5a3;
+  --font-color: rgba(165, 165, 163, 0.6);
+  --btn-font-color: #fcecbe;
+  --btn-cancel-color: #ff0000;
+  --input-font-color-primary: rgba(42, 42, 42, 0.9);
+  --input-font-color-second: rgba(252, 236, 290, 0.9);
+
+  /* other colors */
+  --logo-color: #fcecbe;
+
+  /* font-size */
+  --font-size-base: 14px;
+
+  /* radii */
+  --radii-main: 30px;
+  --radii-input: 5px;
+
+  /* other */
+  font-family: "Average Sans", sans-serif;
+  --font-family-logo: "Julius Sans One", sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  color-scheme: dark;
 }
+
 body {
   background-color: var(--main-background-color);
-}
-
-/*  */
-
-:root {
-  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
-  /* line-height: 1.5; */
-  /* font-weight: 400; */
-
-  /* color-scheme: light dark; */
-  /* color: rgba(255, 255, 255, 0.87); */
-  /* background-color: #242424; */
-
-  /* font-synthesis: none; */
-  /* text-rendering: optimizeLegibility; */
-  /* -webkit-font-smoothing: antialiased; */
-  /* -moz-osx-font-smoothing: grayscale; */
+  /* display: flex; */
+  /* min-width: 320px; */
+  /* min-height: 100vh; */
+  /* place-items: center; */
 }
 
 a {
-  /* font-weight: 500; */
-  /* color: #646cff; */
-  /* text-decoration: inherit; */
+  text-decoration: none;
 }
-a:hover {
-  /* color: #535bf2; */
-}
-
-body {
-  /* margin: 0; */
-  /* display: flex; */
-  /* place-items: center; */
-  /* min-width: 320px; */
-  /* min-height: 100vh; */
-}
-
-h1 {
-  /* font-size: 3.2em; */
-  /* line-height: 1.1; */
+a:hover,
+a:focus {
+  text-decoration: underline;
+  text-decoration-color: var(--bg-color);
 }
 
 button {
-  /* border-radius: 8px; */
-  /* border: 1px solid transparent; */
-  /* padding: 0.6em 1.2em; */
-  /* font-size: 1em; */
-  /* font-weight: 500; */
-  /* font-family: inherit; */
-  /* background-color: #1a1a1a; */
-  /* cursor: pointer; */
+  cursor: pointer;
+  color: var(--btn-font-color);
+  background-color: var(--btn-bg-color);
+  font-size: 1.25rem;
+  border: none;
+  border-radius: var(--radii-main);
+  font-family: "Julius Sans One", sans-serif;
+  font-size: 1.25rem;
   /* transition: border-color 0.25s; */
 }
 button:hover {
@@ -79,6 +81,17 @@ button:focus,
 button:focus-visible {
   /* outline: 4px auto -webkit-focus-ring-color; */
 }
+
+input,
+textarea {
+  padding: 5px 10px;
+  color: var(--input-font-color);
+  background-color: var(--input-second-bg-color);
+  border: none;
+  border-radius: var(--radii-input);
+}
+
+/* prefers-color-sche - для определения стилей, которые применяются, когда пользователь предпочитает светлую цветовую схему в настройках своей операционной системы или браузера */
 
 @media (prefers-color-scheme: light) {
   :root {
