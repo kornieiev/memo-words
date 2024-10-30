@@ -1,0 +1,50 @@
+.headerWrapper {
+  border-top-left-radius: var(--radii-main);
+  border-top-right-radius: var(--radii-main);
+  background-color: var(--bg-color-second);
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.logoText {
+  /* all: unset; */
+  color: var(--logo-color);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-family-logo);
+  font-size: 1.5rem;
+  padding: 1.25rem 0 1.25rem 2rem;
+  margin-right: auto;
+  line-height: 1.3rem;
+}
+
+.logo {
+  width: 70px;
+  border-radius: 0px 0px 30px 30px;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+  fill: var(--logo-color);
+}
+
+.btnWrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.burgerBtn {
+  margin-right: 20px;
+  padding: 10px;
+}
+
+.burgerBtn:hover .icon {
+  fill: var(--hover-color);
+  cursor: pointer;
+}
+
+.btnWrapper {
+  display: flex;
+}

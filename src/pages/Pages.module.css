@@ -1,0 +1,38 @@
+.pagesWrapper {
+  background-color: var(--bg-color-second);
+  min-height: calc(100vh - 120px);
+}
+
+.title {
+  color: var(--logo-color);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-family-logo);
+  font-size: 1.3rem;
+  /* padding: 1.25rem 0 1.25rem 2rem; */
+  margin-right: auto;
+  line-height: 1.6rem;
+}
+
+.titleAccent {
+  font-size: 1.7rem;
+}
+
+.text {
+  padding: 2.1rem 1.3rem;
+  font-family: var(--font-family-root);
+  font-size: 1rem;
+  text-align: justify;
+  text-indent: 20px;
+  color: var(--font-color);
+  span {
+    color: var(--font-accent-color);
+  }
+}
+
+.textAccent {
+  font-size: 1rem;
+  text-align: justify;
+  text-indent: 20px;
+  color: var(--font-color);
+}
