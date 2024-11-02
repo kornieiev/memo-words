@@ -9,6 +9,9 @@
   /* bg colors */
   --bg-color-main: #000;
   --bg-color-second: #2a2a2a;
+  --bg-modal: #878787;
+  --bg-modal-stroke: rgba(252, 236, 190, 0.6);
+
   --btn-bg-color: #a5a5a3;
   --btn-bg-color-action: rgba(196, 196, 196, 0.6);
   --input-bg-color: #7d7d7d;
@@ -17,6 +20,8 @@
   /* font colors */
   --font-accent-color: #a5a5a3;
   --font-color: rgba(165, 165, 163, 0.6);
+  --font-color-input: #2a2a2a;
+
   --btn-font-color: #fcecbe;
   --btn-cancel-color: #ff0000;
   --input-font-color-primary: rgba(42, 42, 42, 0.9);
@@ -50,7 +55,7 @@
 
 body {
   background-color: var(--bg-color-main);
-  padding: 2rem;
+  padding: 2rem 2rem 0;
   min-height: calc(100vh - 4rem);
   outline: 1px solid yellow;
   text-align: center;

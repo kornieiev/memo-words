@@ -1,6 +1,7 @@
 .pagesWrapper {
   background-color: var(--bg-color-second);
   min-height: calc(100vh - 120px);
+  padding-bottom: 2rem;
 }
 
 .title {
@@ -9,24 +10,44 @@
   flex-direction: column;
   font-family: var(--font-family-logo);
   font-size: 1.3rem;
+  padding-top: 2rem;
   /* padding: 1.25rem 0 1.25rem 2rem; */
-  margin-right: auto;
   line-height: 1.6rem;
+
+  @media screen and (min-width: 700px) {
+    font-size: 2rem;
+    line-height: 2rem;
+  }
 }
 
 .titleAccent {
   font-size: 1.7rem;
+  @media screen and (min-width: 700px) {
+    font-size: 2.5rem;
+  }
 }
 
 .text {
-  padding: 2.1rem 1.3rem;
+  padding: 1.5rem 1rem;
   font-family: var(--font-family-root);
-  font-size: 1rem;
+  font-size: 1.2rem;
   text-align: justify;
   text-indent: 20px;
   color: var(--font-color);
   span {
     color: var(--font-accent-color);
+  }
+
+  p:not(:last-child) {
+    margin-bottom: 0.5rem;
+    @media screen and (min-width: 700px) {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    font-size: 1.5rem;
+    padding: 2.1rem 1.3rem;
   }
 }
 
@@ -35,4 +56,19 @@
   text-align: justify;
   text-indent: 20px;
   color: var(--font-color);
+}
+
+.buttonsWrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  @media screen and (min-width: 490px) {
+    gap: 2rem;
+  }
+  @media screen and (min-width: 700px) {
+    flex-direction: row;
+    gap: 3rem;
+  }
 }

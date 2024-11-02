@@ -1,10 +1,46 @@
-import css from "./Header.module.css";
+import { useEffect, useRef, useState } from "react";
 import logo from "../../assets/logo-mini-optim.jpg";
 import sprite from "../../assets/sprite.svg";
 
+import css from "./Header.module.css";
+import BurgerMenu from "../BurgerMenu/BurgerMenu";
+
 export default function Header() {
+  const modalRef = useRef(null); // ref to burger modal
+  const modalBtnCloseRef = useRef(null); // ref to button open burger
+
+  const [isBurgerOpen, setIsBurgerOpen] = useState(false);
+
+  const toggleBurgerMenu = () => {
+    setIsBurgerOpen((prev) => !prev);
+  };
+
+  const handleClickOutside = (e) => {
+    // checking if a click occurred outside the modal and the close menu button
+    if (
+      modalRef.current &&
+      !modalRef.current.contains(e.target) &&
+      modalBtnCloseRef.current &&
+      !modalBtnCloseRef.current.contains(e.target)
+    ) {
+      setIsBurgerOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isBurgerOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isBurgerOpen]);
+
   return (
-    <div className={`container ${css.headerWrapper}`}>
+    <div className={`container ${css.headerWrapper} ${css.menuContainer}`}>
       <a href='/' className={css.logoText}>
         <span>Memo</span>
         <span>Words</span>
@@ -18,11 +54,21 @@ export default function Header() {
             <use href={`${sprite}#icon-user`}></use>
           </svg>
         </button>
-        <button className={css.burgerBtn}>
+        <button
+          className={`${css.burgerBtn}`}
+          onClick={toggleBurgerMenu}
+          ref={modalBtnCloseRef}
+        >
           <svg className={css.icon}>
             <use href={`${sprite}#icon-burgerOpen`}></use>
           </svg>
         </button>
+      </div>
+      <div
+        className={`${css.dropdownMenu} ${isBurgerOpen ? css.show : ""}`}
+        ref={modalRef}
+      >
+        <BurgerMenu toggle={toggleBurgerMenu} />
       </div>
     </div>
   );

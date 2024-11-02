@@ -1,0 +1,30 @@
+.btn {
+  width: 274px;
+  border-radius: var(--radii-main);
+  padding: 0.5rem 0;
+  font-size: 1.43rem;
+  font-family: var(--font-family-logo);
+  color: var(--btn-font-color);
+
+  background-color: var(--btn-bg-color);
+
+  cursor: pointer;
+
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* .btn:not(:last-child) {
+  margin-bottom: 1.86rem;
+  @media screen and (min-width: 600px) {
+    margin-bottom: 0;
+  }
+} */
+
+.btn:hover {
+  background-color: var(--btn-bg-color-action);
+  transform: scale(1.05);
+}
+
+.btnDecline {
+  color: var(--btn-cancel-color);
+}

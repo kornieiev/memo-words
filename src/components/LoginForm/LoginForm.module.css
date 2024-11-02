@@ -1,0 +1,50 @@
+.title {
+  color: var(--bg-modal-stroke);
+  font-size: 1rem;
+  font-family: var(--font-family-root);
+  margin: 0 0.8rem;
+}
+
+.inputTitle {
+  color: var(--bg-modal-stroke);
+  font-size: 1rem;
+  font-family: var(--font-family-root);
+  margin-left: 5px;
+}
+
+.formWrapper {
+  padding: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  input {
+    width: 100%;
+    background-color: var(input-second-bg-color);
+    color: var(--font-color-input);
+    font-family: var(--font-family-root);
+    padding: 5px 10px;
+    font-size: 1.2rem;
+  }
+}
+
+.buttonsWrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  @media screen and (min-width: 490px) {
+    gap: 2rem;
+  }
+  @media screen and (min-width: 700px) {
+    flex-direction: row;
+    gap: 3rem;
+  }
+}

@@ -1,22 +1,40 @@
 .headerWrapper {
   border-top-left-radius: var(--radii-main);
   border-top-right-radius: var(--radii-main);
-  background-color: var(--bg-color-second);
+  /* background-color: var(--bg-color-second); */
+  background: linear-gradient(
+    to bottom,
+    var(--input-bg-color),
+    var(--bg-color-second)
+  );
 
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
 
 .logoText {
-  /* all: unset; */
   color: var(--logo-color);
   display: flex;
   flex-direction: column;
   font-family: var(--font-family-logo);
   font-size: 1.5rem;
-  padding: 1.25rem 0 1.25rem 2rem;
-  margin-right: auto;
   line-height: 1.3rem;
+  align-items: center;
+
+  padding: 1.25rem 0 1.25rem 1rem;
+  margin-right: auto;
+
+  text-shadow: 0 0 5px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0),
+    0 0 15px rgb(0, 0, 0);
+
+  @media screen and (min-width: 490px) {
+    padding-left: 2rem;
+  }
+  @media screen and (min-width: 700px) {
+    padding-left: 2rem;
+    flex-direction: row;
+    font-size: 1.7rem;
+  }
 }
 
 .logo {
@@ -38,6 +56,10 @@
 .burgerBtn {
   margin-right: 20px;
   padding: 10px;
+  @media screen and (max-width: 490px) {
+    padding: 5px;
+    margin-right: 10px;
+  }
 }
 
 .burgerBtn:hover .icon {
@@ -47,4 +69,34 @@
 
 .btnWrapper {
   display: flex;
+}
+
+/* BurgerMenu */
+
+.menuContainer {
+  position: relative;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50vw;
+  height: 100vh;
+  max-width: 300px;
+  background: var(--bg-modal);
+  border-top-right-radius: var(--radii-main);
+  padding: 1rem;
+
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.show {
+  opacity: 1;
+  transform: translateY(0px); /* Плавное появление */
+  pointer-events: auto;
 }

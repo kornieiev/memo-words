@@ -1,6 +1,19 @@
+import { useState } from "react";
+import Button from "../components/Button/Button";
 import css from "./Pages.module.css";
+import Modal from "../components/Modal/Modal";
+import LoginForm from "../components/LoginForm/LoginForm";
+import RegisterForm from "../components/RegisterForm/RegisterForm";
 
 export default function Homepage() {
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+
+  const openLoginModal = () => setIsLoginModalOpen(true);
+  const closeLoginModal = () => setIsLoginModalOpen(false);
+  const openRegisterModal = () => setIsRegisterModalOpen(true);
+  const closeRegisterModal = () => setIsRegisterModalOpen(false);
+
   return (
     <div className={`container ${css.pagesWrapper}`}>
       <h1 className={css.title}>
@@ -12,17 +25,38 @@ export default function Homepage() {
         <p>
           <span>Створюйте</span> власні унікальні <span>словники </span>
           та поповнюйте їх новими словами і фразами будь-якою мовою!{" "}
-          <span>Додавайте переклади </span> Додавайте переклади та{" "}
-          <span>вивчайте слова </span> у зручному форматі.
+          <span>Додавайте переклади </span> та <span>вивчайте слова </span> у
+          зручному форматі.
         </p>
         <p>
-          Проходьте інтерактивні тести для кращого запам’ятовування. Тренуйте
-          пам’ять за допомогою ефективних вправ та інтервальних повторень.
+          <span>Проходьте</span> інтерактивні <span>тести</span> для кращого
+          запам’ятовування. <span>Тренуйте пам’ять</span> за допомогою
+          ефективних вправ та інтервальних повторень.
         </p>
         <p>
-          Стежте за своїм прогресом за допомогою детальної статистики.
-          Відстежуйте, скільки слів ви вже вивчили і які потребують повторення
+          <span>Стежте за</span> своїм <span>прогресом</span> за допомогою
+          детальної статистики. Відстежуйте, скільки слів ви вже вивчили і які
+          потребують повторення.
         </p>
+      </div>
+      <div className={css.buttonsWrapper}>
+        <Button action='confirm' onClick={openRegisterModal}>
+          Register
+        </Button>
+        {isRegisterModalOpen && (
+          <Modal onClose={closeRegisterModal}>
+            <RegisterForm onClose={closeRegisterModal} />
+          </Modal>
+        )}
+
+        <Button action='confirm' onClick={openLoginModal}>
+          Login
+        </Button>
+        {isLoginModalOpen && (
+          <Modal onClose={closeLoginModal}>
+            <LoginForm onClose={closeLoginModal} />
+          </Modal>
+        )}
       </div>
     </div>
   );
