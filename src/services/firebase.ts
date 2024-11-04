@@ -26,19 +26,26 @@ export const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 // AuthUserChecking:
-onAuthStateChanged(auth, (user) => {
-  console.log("userAuthCheck", user);
-  if (user) {
-    // if user authorized
-    console.log("User is signed in:", user);
-    // Now we can use user.uid or another data
-    return true;
-  } else {
-    // if user is NOS authorized
-    console.log("No user is signed in");
-    return false;
-  }
-});
+const authUserStatusChecking = (): Promise<string | boolean> => {
+  return new Promise((resolve, reject) => {
+    onAuthStateChanged(
+      auth,
+      (user) => {
+        if (user) {
+          console.log("User is signed in:", user);
+          resolve(user.uid); // возвращаем user.uid, если пользователь авторизован
+        } else {
+          console.log("No user is signed in");
+          resolve(false); // возвращаем false, если пользователь не авторизован
+        }
+      },
+      (error) => {
+        console.error("Ошибка при проверке статуса авторизации:", error);
+        reject(error); // обрабатываем ошибку при проверке статуса
+      }
+    );
+  });
+};
 
 // Registration:
 const register = (email: string, password: string) => {
@@ -59,4 +66,4 @@ const logout = () => {
   signOut(auth);
 };
 
-export { register, login, logout };
+export { register, login, logout, authUserStatusChecking };

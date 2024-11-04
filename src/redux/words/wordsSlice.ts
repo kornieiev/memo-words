@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { getAllDataFromFirebase } from "./operations"; // функция для получения данных
 
-// Интерфейс для описания типа данных
 interface WordData {
   id: string;
   definition: string;
@@ -18,14 +17,13 @@ interface WordsState {
   error: string | null;
 }
 
-// Начальное состояние
 const initialState: WordsState = {
   words: [],
   loading: false,
   error: null,
 };
 
-// Асинхронный thunk для загрузки данных
+// Async thunk for loading data:
 export const fetchWords = createAsyncThunk("words/fetchWords", async () => {
   const data = await getAllDataFromFirebase();
   return data as WordData[];

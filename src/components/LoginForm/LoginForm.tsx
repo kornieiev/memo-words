@@ -1,15 +1,17 @@
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import { login } from "../../services/firebase.ts";
 
 import css from "./LoginForm.module.css";
 import Button from "../Button/Button";
+import { useAppDispatch } from "../../redux/hooks.ts";
+import { loginUser } from "../../redux/auth/authSlice.ts";
 
 interface LoginFormProps {
   onClose: () => void;
 }
 
 export default function LoginForm({ onClose }: LoginFormProps) {
+  const dispatch = useAppDispatch();
   const initialValues = {
     email: "",
     password: "",
@@ -35,13 +37,8 @@ export default function LoginForm({ onClose }: LoginFormProps) {
   ) => {
     const { email, password } = values;
     console.log("Отправлено:", values);
-    // setTimeout(() => {
-    //   setSubmitting(false); // Отключаем состояние загрузки после отправки формы
-    //   onClose();
-    //   // перенаправляю на авторизовану сторінку користувача
-    // }, 2000);
     try {
-      await login(email, password);
+      dispatch(loginUser({ email, password }));
       alert("Login successful!");
     } catch (error: unknown) {
       if (error instanceof Error) {

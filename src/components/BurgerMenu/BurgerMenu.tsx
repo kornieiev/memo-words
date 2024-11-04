@@ -1,5 +1,6 @@
 import sprite from "../../assets/sprite.svg";
-import { logout } from "../../services/firebase";
+import { logoutUser } from "../../redux/auth/authSlice";
+import { useAppDispatch } from "../../redux/hooks";
 
 import css from "./BurgerMenu.module.css";
 
@@ -8,11 +9,13 @@ interface BurgerMenuProps {
 }
 
 export default function BurgerMenu({ toggle }: BurgerMenuProps) {
+  const dispatch = useAppDispatch();
+
   const onLogout = async () => {
     console.log("click Logout");
     try {
-      await logout();
-      alert("Logout successful!");
+      dispatch(logoutUser());
+      console.debug("Logout successful!");
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error(error.message);
