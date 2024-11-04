@@ -21,21 +21,22 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-console.log(app);
+export const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 const auth = getAuth(app);
-console.log("auth", auth);
 
 // AuthUserChecking:
 onAuthStateChanged(auth, (user) => {
+  console.log("userAuthCheck", user);
   if (user) {
     // if user authorized
     console.log("User is signed in:", user);
     // Now we can use user.uid or another data
+    return true;
   } else {
     // if user is NOS authorized
     console.log("No user is signed in");
+    return false;
   }
 });
 
@@ -55,9 +56,7 @@ const login = (email: string, password: string) => {
 
 // Logout:
 const logout = () => {
-  const logoutResult = signOut(auth);
-  logoutResult.then((resp) => console.log("logout resp", resp));
-  return logoutResult;
+  signOut(auth);
 };
 
 export { register, login, logout };
