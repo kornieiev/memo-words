@@ -11,14 +11,6 @@ export default function MainPage() {
     dispatch(fetchWords());
   }, [dispatch]);
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
-
   return (
     <div className={`container ${css.pagesWrapper}`}>
       {words &&

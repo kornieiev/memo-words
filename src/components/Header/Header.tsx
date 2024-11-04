@@ -4,10 +4,14 @@ import sprite from "../../assets/sprite.svg";
 
 import css from "./Header.module.css";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
+import { RootState } from "../../redux/store";
+import { useAppSelector } from "../../redux/hooks";
 
 export default function Header() {
   const modalRef = useRef(null); // ref to burger modal
   const modalBtnCloseRef = useRef(null); // ref to button open burger
+
+  const { isAuthenticated } = useAppSelector((state: RootState) => state.auth);
 
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
 
@@ -48,28 +52,32 @@ export default function Header() {
       <a href='/'>
         <img src={logo} alt='memo words logo' className={css.logo} />
       </a>
-      <div className={css.btnWrapper}>
-        <button className={css.burgerBtn}>
-          <svg className={css.icon}>
-            <use href={`${sprite}#icon-user`}></use>
-          </svg>
-        </button>
-        <button
-          className={`${css.burgerBtn}`}
-          onClick={toggleBurgerMenu}
-          ref={modalBtnCloseRef}
-        >
-          <svg className={css.icon}>
-            <use href={`${sprite}#icon-burgerOpen`}></use>
-          </svg>
-        </button>
-      </div>
-      <div
-        className={`${css.dropdownMenu} ${isBurgerOpen ? css.show : ""}`}
-        ref={modalRef}
-      >
-        <BurgerMenu toggle={toggleBurgerMenu} />
-      </div>
+      {isAuthenticated && (
+        <>
+          <div className={css.btnWrapper}>
+            <button className={css.burgerBtn}>
+              <svg className={css.icon}>
+                <use href={`${sprite}#icon-user`}></use>
+              </svg>
+            </button>
+            <button
+              className={`${css.burgerBtn}`}
+              onClick={toggleBurgerMenu}
+              ref={modalBtnCloseRef}
+            >
+              <svg className={css.icon}>
+                <use href={`${sprite}#icon-burgerOpen`}></use>
+              </svg>
+            </button>
+          </div>
+          <div
+            className={`${css.dropdownMenu} ${isBurgerOpen ? css.show : ""}`}
+            ref={modalRef}
+          >
+            <BurgerMenu toggle={toggleBurgerMenu} />
+          </div>
+        </>
+      )}
     </div>
   );
 }
