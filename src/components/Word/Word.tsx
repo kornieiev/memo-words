@@ -1,18 +1,6 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { fetchWords } from "../redux/words/wordsSlice";
-import css from "./Pages.module.css";
-
-export default function MainPage() {
-  const dispatch = useAppDispatch();
-  const { words, loading, error } = useAppSelector((state) => state.words);
-
-  useEffect(() => {
-    dispatch(fetchWords());
-  }, [dispatch]);
-
+export default function Word({ words }) {
   return (
-    <div className={`container ${css.pagesWrapper}`}>
+    <div>
       {words &&
         words.map((item, index) => {
           const {

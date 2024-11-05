@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Layout from "./components/Layout";
 import Homepage from "./pages/HomePage";
-import MainPage from "./pages/MainPage";
+import FoldersPage from "./pages/FoldersPage";
 import { useAppDispatch } from "./redux/hooks";
 import { useEffect } from "react";
 import { checkAuthStatus } from "./redux/auth/authSlice";
@@ -25,7 +25,7 @@ function App() {
         {/* Privat routes */}
 
         <Route element={<ProtectedRoute />}>
-          <Route path='/main' element={<MainPage />} />
+          <Route path='/folders' element={<FoldersPage />} />
         </Route>
 
         {/* Not existing routes */}

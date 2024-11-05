@@ -36,10 +36,8 @@ export default function LoginForm({ onClose }: LoginFormProps) {
     { setSubmitting }: FormikHelpers<valuesProps>
   ) => {
     const { email, password } = values;
-    console.log("Отправлено:", values);
     try {
       dispatch(loginUser({ email, password }));
-      alert("Login successful!");
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error(error.message);

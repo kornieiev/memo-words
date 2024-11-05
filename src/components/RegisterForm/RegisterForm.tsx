@@ -45,7 +45,6 @@ export default function RegisterForm({ onClose }: RegisterFormProps) {
     setSubmitting(false);
     try {
       dispatch(registerUser({ email, password }));
-      alert("Registration successful!");
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error(error.message);

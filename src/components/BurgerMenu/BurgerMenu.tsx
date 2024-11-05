@@ -37,7 +37,7 @@ export default function BurgerMenu({ toggle }: BurgerMenuProps) {
       <nav>
         <ul className={css.burgerNav}>
           <li>
-            <a href='/main'>➤ To Folders</a>
+            <a href='/folders'>➤ To Folders</a>
           </li>
           <li>
             <a href='/memorize'>➤ To Memorize</a>

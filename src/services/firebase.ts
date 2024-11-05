@@ -32,13 +32,13 @@ const authUserStatusChecking = (): Promise<string | boolean> => {
       auth,
       (user) => {
         if (user) {
-          console.log("User is signed in:", user);
+          // console.log("User is signed in:", user);
           const userId = auth.currentUser?.uid;
-          console.log("===>>> userId:", userId);
+          // console.log("===>>> userId:", userId);
 
           resolve(user.uid); // возвращаем user.uid, если пользователь авторизован
         } else {
-          console.log("No user is signed in");
+          // console.log("No user is signed in");
           resolve(false); // возвращаем false, если пользователь не авторизован
         }
       },

@@ -44,7 +44,7 @@ export default function Header() {
   }, [isBurgerOpen]);
 
   return (
-    <div className={`container ${css.headerWrapper} ${css.menuContainer}`}>
+    <div className={`${css.headerWrapper} ${css.menuContainer}`}>
       <a href='/' className={css.logoText}>
         <span>Memo</span>
         <span>Words</span>

@@ -21,7 +21,7 @@ export default function Homepage() {
   const { isAuthenticated } = useAppSelector((state: RootState) => state.auth);
 
   if (isAuthenticated) {
-    return <Navigate to='/main' replace />;
+    return <Navigate to='/folders' replace />;
   }
 
   return (

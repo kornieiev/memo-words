@@ -1,0 +1,64 @@
+.title {
+  font-size: 1rem;
+  color: var(--btn-bg-color);
+  padding: 2rem 1rem 1rem;
+  text-align: left;
+  font-family: var(--font-family-root);
+}
+
+.foldersList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0 1rem;
+
+  list-style: none;
+
+  li {
+    background-color: var(--input-second-bg-color);
+    border-radius: var(--radii-input);
+  }
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.3rem 0.6rem;
+  }
+
+  p {
+    color: var(--font-color-input);
+    font-family: var(--font-family-root);
+  }
+}
+
+.parrent {
+  position: relative;
+}
+
+.children {
+  position: absolute;
+  top: 15px;
+  right: 50px;
+}
+
+.icon {
+  width: 1.3rem;
+  height: 1.3rem;
+  fill: var(--logo-color);
+  stroke: black;
+  transition: width 0.3s ease, height 0.3s ease;
+}
+.icon:hover {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.iconAdd {
+  width: 1.8rem;
+  height: 1.8rem;
+}
+.iconAdd:hover {
+  width: 2rem;
+  height: 2rem;
+}
