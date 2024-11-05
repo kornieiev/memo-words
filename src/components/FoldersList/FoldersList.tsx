@@ -2,13 +2,17 @@ import { nanoid } from "nanoid";
 import css from "./FoldersList.module.css";
 import sprite from "../../assets/sprite.svg";
 
-import { useAppSelector } from "../../redux/hooks";
+interface FoldersData {
+  id: string;
+  folderName: string;
+  folderDescription: string;
+}
+interface FoldersListProps {
+  folders: FoldersData[];
+}
 
-export default function FoldersList() {
-  const { words, loading, error } = useAppSelector((state) => state.words);
-  console.log("words", words);
-
-  const foldersList = ["folderOne", "folderTwo", "folderThree"];
+export default function FoldersList({ folders }: FoldersListProps) {
+  const allFolders = [...new Set(folders.map((folder) => folder.folderName))];
 
   return (
     <div>
@@ -24,9 +28,9 @@ export default function FoldersList() {
         </button>
       </div>
 
-      {foldersList && (
+      {allFolders && (
         <ul className={css.foldersList}>
-          {foldersList.map((folder) => {
+          {allFolders.map((folder) => {
             return (
               <li key={nanoid()} className=''>
                 <div>

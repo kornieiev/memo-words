@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { getAllDataFromFirebase } from "./operations"; // функция для получения данных
+import { getAllDataFromFirebase, getCurrentUserWords } from "./operations"; // функция для получения данных
 
 interface WordData {
   id: string;
@@ -23,11 +23,25 @@ const initialState: WordsState = {
   error: null,
 };
 
-// Async thunk for loading data:
-export const fetchWords = createAsyncThunk("words/fetchWords", async () => {
-  const data = await getAllDataFromFirebase();
-  return data as WordData[];
-});
+// Async thunk for loading all data:
+export const fetchAllUsersWords = createAsyncThunk(
+  "words/fetchWords",
+  async () => {
+    const data = await getAllDataFromFirebase();
+    console.log("data", data);
+    return data as WordData[];
+  }
+);
+
+// Async thunk for loading current user data:
+export const fetchCurrentUserWords = createAsyncThunk(
+  "words/fetchWords",
+  async () => {
+    const data = await getCurrentUserWords();
+    console.log("fetchCurrentUserData", data);
+    return data as WordData[];
+  }
+);
 
 const wordsSlice = createSlice({
   name: "words",
@@ -35,18 +49,18 @@ const wordsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchWords.pending, (state) => {
+      .addCase(fetchCurrentUserWords.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(
-        fetchWords.fulfilled,
+        fetchCurrentUserWords.fulfilled,
         (state, action: PayloadAction<WordData[]>) => {
           state.loading = false;
           state.words = action.payload;
         }
       )
-      .addCase(fetchWords.rejected, (state, action) => {
+      .addCase(fetchCurrentUserWords.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Failed to load words";
       });

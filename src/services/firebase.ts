@@ -23,7 +23,7 @@ const firebaseConfig = {
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
-const auth = getAuth(app);
+export const auth = getAuth(app);
 
 // AuthUserChecking:
 const authUserStatusChecking = (): Promise<string | boolean> => {

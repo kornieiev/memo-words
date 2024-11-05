@@ -1,4 +1,4 @@
-import { app } from "../../services/firebase";
+import { app, auth } from "../../services/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 
@@ -25,9 +25,10 @@ const getAllDataFromFirebase = async () => {
   }
 };
 
-const getUserWords = async () => {
+const getCurrentUserWords = async () => {
   try {
     const userId = auth.currentUser?.uid;
+    console.log("currentUserId:", userId);
     if (!userId) throw new Error("User is not authenticated");
 
     const wordsRef = collection(db, "words");
@@ -38,6 +39,7 @@ const getUserWords = async () => {
       id: doc.id,
       ...doc.data(),
     }));
+    console.log("currentUserWords", words);
     return words;
   } catch (error) {
     console.error("Ошибка при загрузке данных:", error);
@@ -45,4 +47,4 @@ const getUserWords = async () => {
   }
 };
 
-export { getAllDataFromFirebase, getUserWords };
+export { getAllDataFromFirebase, getCurrentUserWords };

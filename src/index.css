@@ -118,7 +118,7 @@ textarea {
   min-height: calc(100vh);
 
   background-color: var(--bg-color-second);
-  /* border-radius: var(--radii-main); */
+  border-radius: var(--radii-main);
   /* margin: 1rem 2rem; */
 }
 
