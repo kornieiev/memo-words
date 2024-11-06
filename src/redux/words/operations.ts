@@ -1,11 +1,12 @@
 import { app, auth } from "../../services/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
+// import { WordProps } from "../../types/words";
 
 const db = getFirestore(app);
 
 /*
- * GET Data from Firestore
+ * GET All Data from Firestore
  */
 const getAllDataFromFirebase = async () => {
   try {
@@ -25,6 +26,9 @@ const getAllDataFromFirebase = async () => {
   }
 };
 
+/*
+ * GET Current User All Words from Firestore
+ */
 const getCurrentUserWords = async () => {
   try {
     const userId = auth.currentUser?.uid;
@@ -39,7 +43,6 @@ const getCurrentUserWords = async () => {
       id: doc.id,
       ...doc.data(),
     }));
-    console.log("currentUserWords", words);
     return words;
   } catch (error) {
     console.error("Ошибка при загрузке данных:", error);
@@ -47,4 +50,32 @@ const getCurrentUserWords = async () => {
   }
 };
 
-export { getAllDataFromFirebase, getCurrentUserWords };
+interface WordProps {
+  definition?: string;
+  folder?: string;
+  id?: string;
+  imageLink?: string;
+  learningStatus?: string;
+  translation?: string;
+  userId?: string;
+  word?: string;
+}
+
+/*
+ * GET Current User Words from specific folder
+ */
+const getDocumentsByUserAndId = async (folderName: string) => {
+  try {
+    const data = await getCurrentUserWords();
+    const filteredData = data.filter(
+      (word: WordProps) => word.folder === folderName
+    );
+    console.log("🚀 ~ filteredData:", filteredData);
+    return filteredData as WordProps[];
+  } catch (error) {
+    console.error("Ошибка при загрузке данных:", error);
+    return [];
+  }
+};
+
+export { getAllDataFromFirebase, getCurrentUserWords, getDocumentsByUserAndId };

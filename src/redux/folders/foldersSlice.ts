@@ -24,7 +24,6 @@ export const fetchCurrentUserFolders = createAsyncThunk(
   "words/fetchFolders",
   async () => {
     const data = await getCurrentUserFolders();
-    console.log("fetchCurrentUserFolders", data);
     return data as FoldersData[];
   }
 );

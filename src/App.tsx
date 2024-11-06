@@ -7,6 +7,7 @@ import { useAppDispatch } from "./redux/hooks";
 import { useEffect } from "react";
 import { checkAuthStatus } from "./redux/auth/authSlice";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import Folder from "./components/Folder/Folder";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -23,9 +24,9 @@ function App() {
         <Route path='/' element={<Homepage />}></Route>
 
         {/* Privat routes */}
-
         <Route element={<ProtectedRoute />}>
           <Route path='/folders' element={<FoldersPage />} />
+          <Route path='/folders/:folderName' element={<Folder />} />
         </Route>
 
         {/* Not existing routes */}

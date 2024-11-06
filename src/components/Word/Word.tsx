@@ -1,42 +1,30 @@
-export default function Word({ words }) {
-  return (
-    <div>
-      {words &&
-        words.map((item, index) => {
-          const {
-            definition,
-            folder,
-            imageLink,
-            learningStatus,
-            translation,
-            word,
-          } = item;
+import { WordProps } from "../../types/words";
 
-          return (
-            <div key={index}>
-              <ul>
-                <li>
-                  <p>
-                    Folder:<b> {folder}</b>
-                  </p>
-                  <p>
-                    Word:<b> {word}</b>
-                  </p>
-                  <p>
-                    Translation:<b> {translation}</b>
-                  </p>
-                  <p>
-                    Definition:<b> {definition}</b>
-                  </p>
-                  <p>
-                    LearningStatus:<b> {learningStatus}</b>
-                  </p>
-                  <img width='100px' src={imageLink} alt={word} />
-                </li>
-              </ul>
-            </div>
-          );
-        })}
-    </div>
-  );
+import css from "./Word.module.css";
+
+interface WordComponentProps {
+  word: WordProps;
+}
+
+export default function Word({ word }: WordComponentProps) {
+  if (word) {
+    return (
+      <li key={word.id} className={css.wordWrapper}>
+        <div>
+          <p className={css.word}>{word.word}</p>
+          <p className={css.translation}>{word.translation}</p>
+        </div>
+        <div className={css.secondaryWrapper}>
+          <img src={word.imageLink} alt={word.word} />
+          <div>
+            <p>1</p>
+            <p>2</p>
+            <p>3</p>
+          </div>
+        </div>
+        <p className={css.definition}>{word.definition}</p>
+      </li>
+    );
+  }
+  console.log("word", word);
 }

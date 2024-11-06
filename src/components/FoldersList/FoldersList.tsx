@@ -1,4 +1,5 @@
-import { nanoid } from "nanoid";
+import { useNavigate } from "react-router-dom";
+
 import css from "./FoldersList.module.css";
 import sprite from "../../assets/sprite.svg";
 
@@ -12,7 +13,9 @@ interface FoldersListProps {
 }
 
 export default function FoldersList({ folders }: FoldersListProps) {
-  const allFolders = [...new Set(folders.map((folder) => folder.folderName))];
+  const navigate = useNavigate();
+
+  // console.log("== FoldersList-folders:", folders);
 
   return (
     <div>
@@ -28,13 +31,18 @@ export default function FoldersList({ folders }: FoldersListProps) {
         </button>
       </div>
 
-      {allFolders && (
+      {folders && (
         <ul className={css.foldersList}>
-          {allFolders.map((folder) => {
+          {folders.map((folder) => {
+            // console.log("+++++folder", folder);
             return (
-              <li key={nanoid()} className=''>
+              <li
+                key={folder.id}
+                className=''
+                onClick={() => navigate(`/folders/${folder.folderName}`)}
+              >
                 <div>
-                  <p>{folder}</p>
+                  <p>{folder.folderName}</p>
                   <svg className={css.icon}>
                     <use href={`${sprite}#icon-config`}></use>
                   </svg>

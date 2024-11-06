@@ -1,18 +1,20 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { getAllDataFromFirebase, getCurrentUserWords } from "./operations"; // функция для получения данных
+import { WordProps } from "../../types/words";
 
-interface WordData {
-  id: string;
-  definition: string;
-  folder: string;
-  imageLink: string;
-  learningStatus: string;
-  translation: string;
-  word: string;
-}
+// delete if works
+// interface WordProps {
+//   id: string;
+//   definition: string;
+//   folder: string;
+//   imageLink: string;
+//   learningStatus: string;
+//   translation: string;
+//   word: string;
+// }
 
 interface WordsState {
-  words: WordData[];
+  words: WordProps[];
   loading: boolean;
   error: string | null;
 }
@@ -29,7 +31,7 @@ export const fetchAllUsersWords = createAsyncThunk(
   async () => {
     const data = await getAllDataFromFirebase();
     console.log("data", data);
-    return data as WordData[];
+    return data as WordProps[];
   }
 );
 
@@ -39,7 +41,7 @@ export const fetchCurrentUserWords = createAsyncThunk(
   async () => {
     const data = await getCurrentUserWords();
     console.log("fetchCurrentUserData", data);
-    return data as WordData[];
+    return data as WordProps[];
   }
 );
 
@@ -55,7 +57,7 @@ const wordsSlice = createSlice({
       })
       .addCase(
         fetchCurrentUserWords.fulfilled,
-        (state, action: PayloadAction<WordData[]>) => {
+        (state, action: PayloadAction<WordProps[]>) => {
           state.loading = false;
           state.words = action.payload;
         }

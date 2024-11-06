@@ -18,7 +18,6 @@ const getCurrentUserFolders = async () => {
       id: doc.id,
       ...doc.data(),
     }));
-    console.log("currentUserFolders", folders);
     return folders;
   } catch (error) {
     console.error("Ошибка при загрузке данных:", error);
