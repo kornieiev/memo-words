@@ -3,12 +3,16 @@ import * as Yup from "yup";
 
 import css from "./CreateFolderForm.module.css";
 import Button from "../Button/Button";
+import { createNewFolder } from "../../redux/folders/foldersSlice";
+import { useAppDispatch } from "../../redux/hooks";
 
 interface CreateFolderFormProps {
   onClose: () => void;
 }
 
 export default function CreateFolderForm({ onClose }: CreateFolderFormProps) {
+  const dispatch = useAppDispatch();
+
   const initialValues = {
     folderName: "",
     folderDescription: "",
@@ -31,8 +35,7 @@ export default function CreateFolderForm({ onClose }: CreateFolderFormProps) {
     const { folderName, folderDescription } = values;
     setSubmitting(false);
     try {
-      // dispatch(registerUser({ email, password }));
-      alert("Registration successful!");
+      dispatch(createNewFolder({ folderName, folderDescription }));
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error(error.message);

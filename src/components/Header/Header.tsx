@@ -6,12 +6,15 @@ import css from "./Header.module.css";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import { RootState } from "../../redux/store";
 import { useAppSelector } from "../../redux/hooks";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   const modalRef = useRef(null); // ref to burger modal
   const modalBtnCloseRef = useRef(null); // ref to button open burger
 
   const { isAuthenticated } = useAppSelector((state: RootState) => state.auth);
+  const email = useAppSelector((state: RootState) => state.auth?.user?.email);
+  // console.log("🚀 ~ Header ~ email:", email);
 
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
 
@@ -45,13 +48,17 @@ export default function Header() {
 
   return (
     <div className={`${css.headerWrapper} ${css.menuContainer}`}>
-      <a href='/' className={css.logoText}>
+      <Link to='/' className={css.logoText}>
         <span>Memo</span>
         <span>Words</span>
-      </a>
-      <a href='/'>
-        <img src={logo} alt='memo words logo' className={css.logo} />
-      </a>
+      </Link>
+      <div>
+        <Link to='/'>
+          <img src={logo} alt='memo words logo' className={css.logo} />
+        </Link>
+        {email && <p>{email}</p>}
+      </div>
+
       {isAuthenticated && (
         <>
           <div className={css.btnWrapper}>

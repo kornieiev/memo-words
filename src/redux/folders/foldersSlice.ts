@@ -1,5 +1,10 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { getCurrentUserFolders } from "./operations"; // функция для получения данных
+import { getCurrentUserFolders, createFolder } from "./operations"; // функция для получения данных
+
+interface NewFolderData {
+  folderName: string;
+  folderDescription: string;
+}
 
 interface FoldersData {
   id: string;
@@ -21,12 +26,56 @@ const initialState: FoldersState = {
 
 // Async thunk for loading current user data:
 export const fetchCurrentUserFolders = createAsyncThunk(
-  "words/fetchFolders",
+  "folders/fetchFolders",
   async () => {
     const data = await getCurrentUserFolders();
     return data as FoldersData[];
   }
 );
+
+export const createNewFolder = createAsyncThunk(
+  "folders/fetchFolder",
+  async (
+    {
+      folderName,
+      folderDescription,
+    }: { folderName: string; folderDescription: string },
+    { rejectWithValue }
+  ) => {
+    console.log(" createFolder = createAsyncThunk");
+    console.log("folderName", folderName);
+    console.log("folderDescription", folderDescription);
+    try {
+      const data = await createFolder(folderName, folderDescription);
+      if (data) {
+        return { id: data.id, folderName, folderDescription };
+      }
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+// export const createNewFolder = createAsyncThunk(
+//   "folders/createNewFolder",
+//   async (
+//     {
+//       folderName,
+//       folderDescription,
+//     }: { folderName: string; folderDescription: string },
+//     { rejectWithValue }
+//   ) => {
+//         console.log(" createFolder = createAsyncThunk");
+//         console.log("folderName", folderName);
+//         console.log("folderDescription", folderDescription);
+//     try {
+//       const docRef = await createFolder(folderName, folderDescription);
+//       return { folderName, folderDescription };
+//     } catch (error: any) {
+//       return rejectWithValue(error.message);
+//     }
+//   }
+// );
 
 const foldersSlice = createSlice({
   name: "folders",
@@ -34,6 +83,7 @@ const foldersSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      // fetchCurrentUserFolders
       .addCase(fetchCurrentUserFolders.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -48,6 +98,22 @@ const foldersSlice = createSlice({
       .addCase(fetchCurrentUserFolders.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Failed to load words";
+      })
+      // createNewFolder
+      .addCase(createNewFolder.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createNewFolder.fulfilled, (state, action) => {
+        state.loading = false;
+        if (action.payload) {
+          const { id, folderName, folderDescription } = action.payload;
+          state.folders.push({ id, folderName, folderDescription });
+        }
+      })
+      .addCase(createNewFolder.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "Failed to create new folder";
       });
   },
 });

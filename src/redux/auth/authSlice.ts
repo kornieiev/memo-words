@@ -6,13 +6,13 @@ import {
   authUserStatusChecking,
 } from "../../services/firebase";
 
-// Тип данных пользователя
+// User data type
 interface User {
   uid: string;
   email: string | null;
 }
 
-// Тип состояния авторизации
+// Authorization state type
 interface AuthState {
   isAuthenticated: boolean;
   token: string | null;
@@ -29,7 +29,7 @@ const initialState: AuthState = {
   error: null,
 };
 
-// Проверка статуса авторизации
+// Auth status checking
 export const checkAuthStatus = createAsyncThunk(
   "auth/checkAuthStatus",
   async () => {
@@ -38,7 +38,7 @@ export const checkAuthStatus = createAsyncThunk(
   }
 );
 
-// Регистрация пользователя
+// User registration
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (
@@ -49,13 +49,13 @@ export const registerUser = createAsyncThunk(
       const response = await register(email, password);
       const token = await response.user.getIdToken();
       return { uid: response.user.uid, email: response.user.email, token };
-    } catch (error) {
+    } catch (error: any) {
       return rejectWithValue(error.message);
     }
   }
 );
 
-// Логин пользователя
+// User login
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (
@@ -72,7 +72,7 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-// Логаут пользователя
+// User logOut
 export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
   await logout();
 });
@@ -83,18 +83,27 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      // Проверка статуса авторизации
+      // Auth status checking
       .addCase(checkAuthStatus.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(
         checkAuthStatus.fulfilled,
-        (state, action: PayloadAction<string | boolean>) => {
+        (
+          state,
+          action: PayloadAction<{
+            uid: string;
+            email: string | null;
+          }>
+        ) => {
           state.loading = false;
           if (action.payload) {
             state.isAuthenticated = true;
-            state.user = { uid: action.payload as string, email: null };
+            state.user = {
+              uid: action.payload.uid as string,
+              email: action.payload.email,
+            };
           } else {
             state.isAuthenticated = false;
             state.user = null;
@@ -106,7 +115,7 @@ const authSlice = createSlice({
         state.error =
           action.error.message || "Ошибка проверки статуса авторизации";
       })
-      // Регистрация
+      // User registration
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -131,7 +140,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
-      // Логин
+      // User login
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -156,7 +165,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
-      // Логаут
+      // User logOut
       .addCase(logoutUser.pending, (state) => {
         state.loading = true;
         state.error = null;

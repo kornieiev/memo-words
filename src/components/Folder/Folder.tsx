@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getDocumentsByUserAndId } from "../../redux/words/operations";
 import { useEffect, useState } from "react";
 import css from "./Folder.module.css";
@@ -20,6 +20,9 @@ export default function Folder() {
 
   return (
     <>
+      <div>
+        <Link to='/folders'>Go back to All Folders</Link>
+      </div>
       <div>Folder name: {folderName}</div>
       {words.length > 0 ? (
         <ul className={css.wordsWrapper}>

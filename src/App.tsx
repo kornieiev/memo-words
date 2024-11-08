@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { checkAuthStatus } from "./redux/auth/authSlice";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Folder from "./components/Folder/Folder";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -30,7 +31,8 @@ function App() {
         </Route>
 
         {/* Not existing routes */}
-        <Route path='*' element={<Navigate to='/' />} />
+        <Route path='/:error' element={<ErrorPage />} />
+        <Route path='*' element={<ErrorPage />} />
       </Route>
     </Routes>
   );

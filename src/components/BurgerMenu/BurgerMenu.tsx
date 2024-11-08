@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import sprite from "../../assets/sprite.svg";
 import { logoutUser } from "../../redux/auth/authSlice";
 import { useAppDispatch } from "../../redux/hooks";
@@ -37,20 +38,30 @@ export default function BurgerMenu({ toggle }: BurgerMenuProps) {
       <nav>
         <ul className={css.burgerNav}>
           <li>
-            <a href='/folders'>➤ To Folders</a>
+            <NavLink to='/folders' onClick={toggle}>
+              ➤ To Folders
+            </NavLink>
           </li>
           <li>
-            <a href='/memorize'>➤ To Memorize</a>
+            <NavLink to='/memorize' onClick={toggle}>
+              ➤ To Memorize
+            </NavLink>
           </li>
           <li>
-            <a href='/settings'>Settings</a>
+            <NavLink to='/settings' onClick={toggle}>
+              Settings
+            </NavLink>
           </li>
           <li>
-            <a href='/about'>About</a>
+            <NavLink to='/about' onClick={toggle}>
+              About
+            </NavLink>
           </li>
 
           <li>
-            <a href='/help-us'>Help this project</a>
+            <NavLink to='/help-us' onClick={toggle}>
+              Help this project
+            </NavLink>
           </li>
 
           <button onClick={onLogout} type='button' className={css.logoutBtn}>
