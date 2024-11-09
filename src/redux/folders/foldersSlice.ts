@@ -1,11 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { getCurrentUserFolders, createFolder } from "./operations"; // функция для получения данных
 
-interface NewFolderData {
-  folderName: string;
-  folderDescription: string;
-}
-
 interface FoldersData {
   id: string;
   folderName: string;
@@ -42,9 +37,6 @@ export const createNewFolder = createAsyncThunk(
     }: { folderName: string; folderDescription: string },
     { rejectWithValue }
   ) => {
-    console.log(" createFolder = createAsyncThunk");
-    console.log("folderName", folderName);
-    console.log("folderDescription", folderDescription);
     try {
       const data = await createFolder(folderName, folderDescription);
       if (data) {
@@ -55,27 +47,6 @@ export const createNewFolder = createAsyncThunk(
     }
   }
 );
-
-// export const createNewFolder = createAsyncThunk(
-//   "folders/createNewFolder",
-//   async (
-//     {
-//       folderName,
-//       folderDescription,
-//     }: { folderName: string; folderDescription: string },
-//     { rejectWithValue }
-//   ) => {
-//         console.log(" createFolder = createAsyncThunk");
-//         console.log("folderName", folderName);
-//         console.log("folderDescription", folderDescription);
-//     try {
-//       const docRef = await createFolder(folderName, folderDescription);
-//       return { folderName, folderDescription };
-//     } catch (error: any) {
-//       return rejectWithValue(error.message);
-//     }
-//   }
-// );
 
 const foldersSlice = createSlice({
   name: "folders",
