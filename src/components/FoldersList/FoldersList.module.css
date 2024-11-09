@@ -1,0 +1,119 @@
+.foldersWrapper {
+  margin: auto;
+
+  @media screen and (min-width: 700px) {
+    font-size: 1.3rem;
+  }
+  @media screen and (min-width: 1240px) {
+    font-size: 1.5rem;
+  }
+}
+
+.title {
+  font-size: 1rem;
+  color: var(--btn-bg-color);
+  padding: 2rem 3rem 1rem;
+  text-align: left;
+  font-family: var(--font-family-root);
+
+  @media screen and (min-width: 700px) {
+    font-size: 1.5rem;
+    padding-left: 15%;
+  }
+  @media screen and (min-width: 1240px) {
+    padding-left: 20%;
+  }
+}
+
+.foldersList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0 1rem;
+
+  list-style: none;
+
+  li {
+    background-color: var(--input-second-bg-color);
+    border-radius: var(--radii-input);
+  }
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.3rem 0.6rem;
+  }
+
+  p {
+    color: var(--font-color-input);
+    font-family: var(--font-family-root);
+  }
+
+  @media screen and (min-width: 700px) {
+    padding: 0 15%;
+
+    /* max-width: 500px; */
+  }
+  @media screen and (min-width: 1240px) {
+    padding: 0 20%;
+  }
+}
+
+.parrent {
+  position: relative;
+}
+
+.children {
+  position: absolute;
+  top: 15px;
+  right: 50px;
+
+  @media screen and (min-width: 700px) {
+    top: 20px;
+    right: 100px;
+  }
+  @media screen and (min-width: 1240px) {
+    top: 20px;
+    right: 200px;
+  }
+}
+
+.icon {
+  width: 1.3rem;
+  height: 1.3rem;
+  fill: var(--logo-color);
+  stroke: black;
+  transition: width 0.3s ease, height 0.3s ease;
+}
+.icon:hover {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.iconAdd {
+  width: 1.8rem;
+  height: 1.8rem;
+
+  @media screen and (min-width: 700px) {
+    width: 2.3rem;
+    height: 2.3rem;
+  }
+  @media screen and (min-width: 1240px) {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+.iconAdd:hover {
+  width: 2rem;
+  height: 2rem;
+
+  @media screen and (min-width: 700px) {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  @media screen and (min-width: 1240px) {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+}

@@ -5,6 +5,10 @@ import Modal from "../components/Modal/Modal";
 import LoginForm from "../components/LoginForm/LoginForm";
 import RegisterForm from "../components/RegisterForm/RegisterForm";
 
+import { Navigate } from "react-router-dom";
+import { RootState } from "../redux/store";
+import { useAppSelector } from "../redux/hooks";
+
 export default function Homepage() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
@@ -13,6 +17,12 @@ export default function Homepage() {
   const closeLoginModal = () => setIsLoginModalOpen(false);
   const openRegisterModal = () => setIsRegisterModalOpen(true);
   const closeRegisterModal = () => setIsRegisterModalOpen(false);
+
+  const { isAuthenticated } = useAppSelector((state: RootState) => state.auth);
+
+  if (isAuthenticated) {
+    return <Navigate to='/folders' replace />;
+  }
 
   return (
     <div className={`container ${css.pagesWrapper}`}>
@@ -40,21 +50,21 @@ export default function Homepage() {
         </p>
       </div>
       <div className={css.buttonsWrapper}>
-        <Button action='confirm' onClick={openRegisterModal}>
-          Register
-        </Button>
-        {isRegisterModalOpen && (
-          <Modal onClose={closeRegisterModal}>
-            <RegisterForm onClose={closeRegisterModal} />
-          </Modal>
-        )}
-
         <Button action='confirm' onClick={openLoginModal}>
           Login
         </Button>
         {isLoginModalOpen && (
           <Modal onClose={closeLoginModal}>
             <LoginForm onClose={closeLoginModal} />
+          </Modal>
+        )}
+
+        <Button action='confirm' onClick={openRegisterModal}>
+          Register
+        </Button>
+        {isRegisterModalOpen && (
+          <Modal onClose={closeRegisterModal}>
+            <RegisterForm onClose={closeRegisterModal} />
           </Modal>
         )}
       </div>

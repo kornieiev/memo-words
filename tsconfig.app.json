@@ -20,6 +20,9 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
+
+    /* Added by me */
+    // "strictNullChecks": true
   },
   "include": ["src"]
 }

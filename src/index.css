@@ -115,10 +115,12 @@ textarea {
 .container {
   min-width: 335px;
   /* outline: 1px solid green; */
-  /* min-height: calc(100vh); */
+  min-height: calc(100vh);
 
-  /* background-color: var(--bg-color-second); */
-  /* border-radius: var(--radii-main); */
+  background-color: var(--bg-color-second);
+  border-radius: var(--radii-main);
+
+  text-align: center;
   /* margin: 1rem 2rem; */
 }
 

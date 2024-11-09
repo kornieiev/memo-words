@@ -1,6 +1,6 @@
 .pagesWrapper {
-  background-color: var(--bg-color-second);
-  min-height: calc(100vh - 120px);
+  /* background-color: var(--bg-color-second); */
+  /* min-height: calc(100vh - 120px); */
   padding-bottom: 2rem;
 }
 

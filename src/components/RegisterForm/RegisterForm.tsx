@@ -1,15 +1,18 @@
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import { register } from "../../services/firebase.ts";
 
 import css from "./RegisterForm.module.css";
 import Button from "../Button/Button";
+import { registerUser } from "../../redux/auth/authSlice";
+import { useAppDispatch } from "../../redux/hooks";
 
 interface RegisterFormProps {
   onClose: () => void;
 }
 
 export default function RegisterForm({ onClose }: RegisterFormProps) {
+  const dispatch = useAppDispatch();
+
   const initialValues = {
     email: "",
     password: "",
@@ -38,17 +41,10 @@ export default function RegisterForm({ onClose }: RegisterFormProps) {
     values: valuesProps,
     { setSubmitting }: FormikHelpers<valuesProps>
   ) => {
-    console.log("Отправлено:", values);
     const { email, password } = values;
-    // setTimeout(() => {
-    //   setSubmitting(false); // Отключаем состояние загрузки после отправки формы
-
-    //   // перенаправляю на авторизовану сторінку користувача
-    // }, 2000);
     setSubmitting(false);
     try {
-      await register(email, password);
-      alert("Registration successful!");
+      dispatch(registerUser({ email, password }));
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error(error.message);
