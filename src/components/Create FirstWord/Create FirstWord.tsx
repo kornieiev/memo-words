@@ -20,7 +20,7 @@ export default function CreateFirstWord({
 
   return (
     <div className={css.CreateFirstFolderWrapper}>
-      <p>Please create your first entry in this word collection</p>
+      <h2> This folder is empty yet</h2>
 
       <Button action='confirm' onClick={openAddFolderModal}>
         <svg className={css.icon}>
@@ -28,6 +28,8 @@ export default function CreateFirstWord({
         </svg>
         Create new entry
       </Button>
+      <p>Please create your first entry in this word collection</p>
+
       {isAddWordModalOpen && (
         <Modal onClose={closeAddFolderModal}>
           <CreateEntryForm
