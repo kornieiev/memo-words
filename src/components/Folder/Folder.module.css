@@ -1,3 +1,9 @@
+.navWrapper {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+}
+
 .wordsWrapper {
   display: flex;
   flex-wrap: wrap;
@@ -10,5 +16,116 @@
   @media screen and (min-width: 700px) {
     flex-direction: row;
     gap: 2rem;
+  }
+}
+
+.goBack {
+  display: flex;
+  align-items: flex-end;
+  margin: 1rem auto 0 2rem;
+  background-color: var(--btn-bg-color);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radii-main);
+  color: var(--btn-font-color);
+  font-family: var(--font-family-logo);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+
+  svg {
+    margin-right: 0.2rem;
+  }
+}
+.goBack:hover {
+  background-color: var(--btn-bg-color-action);
+  transform: scale(1.05);
+}
+
+.folderName {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 2rem;
+  font-size: 1rem;
+  font-family: var(--font-family-root);
+  padding: 0;
+  line-height: 1.4rem;
+  span {
+    font-size: 1.5rem;
+    font-family: var(--font-family-logo);
+    color: var(--btn-font-color);
+  }
+
+  @media screen and (min-width: 700px) {
+    margin-right: 4rem;
+    font-size: 1.3rem;
+    line-height: 2rem;
+    span {
+      font-size: 2rem;
+    }
+  }
+  @media screen and (min-width: 1240px) {
+    margin-right: 10rem;
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+    span {
+      font-size: 2.8rem;
+    }
+  }
+}
+
+.parrent {
+  position: relative;
+}
+
+.children {
+  position: absolute;
+  top: -67px;
+  right: 130px;
+
+  @media screen and (min-width: 700px) {
+    top: -80px;
+    right: 220px;
+  }
+  @media screen and (min-width: 1240px) {
+    top: -85px;
+    right: 380px;
+  }
+}
+
+.icon {
+  width: 1.3rem;
+  height: 1.3rem;
+  fill: var(--logo-color);
+  stroke: black;
+  transition: width 0.3s ease, height 0.3s ease;
+}
+.icon:hover {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.iconAdd {
+  width: 1.8rem;
+  height: 1.8rem;
+
+  @media screen and (min-width: 700px) {
+    width: 2.3rem;
+    height: 2.3rem;
+  }
+  @media screen and (min-width: 1240px) {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+.iconAdd:hover {
+  width: 2rem;
+  height: 2rem;
+
+  @media screen and (min-width: 700px) {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  @media screen and (min-width: 1240px) {
+    width: 3.5rem;
+    height: 3.5rem;
   }
 }

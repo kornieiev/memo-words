@@ -5,6 +5,9 @@ import css from "./CreateEntryForm.module.css";
 import Button from "../Button/Button";
 import { useAppDispatch } from "../../redux/hooks";
 import { addNewWord } from "../../redux/words/wordsSlice";
+import { useState } from "react";
+import Svg from "../Svg/Svg";
+import { handleFileUpload } from "../../services/aws";
 
 interface CreateEntryFormProps {
   onClose: () => void;
@@ -17,29 +20,57 @@ export default function CreateEntryForm({
 }: CreateEntryFormProps) {
   const dispatch = useAppDispatch();
 
+  const [pickedImage, setPickedImage] = useState(null);
+  const [imgFile, setImgFile] = useState(null);
+
+  const handleImageAdd = (e) => {
+    const file = e.target.files[0];
+    if (!file) {
+      setPickedImage(null);
+      return;
+    }
+
+    setImgFile(file);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setPickedImage(e.target.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const onDeleteImageClick = () => {
+    setPickedImage(null);
+  };
+
   const initialValues = {
     word: "",
     translation: "",
     definition: "",
+    loadImage: null,
   };
 
   const validationSchema = Yup.object({
     word: Yup.string().required("Enter word"),
     translation: Yup.string().required("Enter translation"),
     definition: Yup.string(),
+    // loadImage: Yup.string(),
   });
 
   interface valuesProps {
     word: string;
     translation: string;
     definition: string;
+    loadImage: null | string;
   }
 
   const onSubmit = async (
     values: valuesProps,
     { setSubmitting }: FormikHelpers<valuesProps>
   ) => {
-    const { word, translation, definition } = values;
+    const { word, translation, definition, loadImage } = values;
+
+    const linkToImg = await handleFileUpload(imgFile);
+
     setSubmitting(false);
 
     try {
@@ -49,8 +80,7 @@ export default function CreateEntryForm({
           word,
           translation,
           definition,
-          imageLink:
-            "https://cdn.pixabay.com/photo/2014/06/03/19/38/road-sign-361513_640.jpg",
+          imageLink: linkToImg,
           learningStatus: "3",
         })
       );
@@ -127,6 +157,29 @@ export default function CreateEntryForm({
                   component='div'
                   className='error'
                 />
+              </div>
+              <div className={css.picker}>
+                {pickedImage ? (
+                  <div>
+                    <img src={pickedImage} alt='picked image' />
+                    <div onClick={onDeleteImageClick}>
+                      <Svg color='#ff0000' size='small'>
+                        cancel
+                      </Svg>
+                    </div>
+                  </div>
+                ) : (
+                  <label onChange={handleImageAdd} htmlFor='loadImage'>
+                    <span>Load image</span>
+                    <input
+                      type='file'
+                      accept='image/png, image/jpeg'
+                      name='loadImage'
+                      id='loadImage'
+                      style={{ display: "none" }}
+                    />
+                  </label>
+                )}
               </div>
             </div>
 

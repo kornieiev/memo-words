@@ -1,38 +1,63 @@
-import { Link, useParams } from "react-router-dom";
-import { getDocumentsByUserAndId } from "../../redux/words/operations";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import css from "./Folder.module.css";
 import Word from "../Word/Word";
 import { WordProps } from "../../types/words";
 import CreateFirstWord from "../Create FirstWord/Create FirstWord";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { RootState } from "@reduxjs/toolkit/query";
 import { fetchCurrentUserWords } from "../../redux/words/wordsSlice";
+import Svg from "../Svg/Svg";
+import sprite from "../../assets/sprite.svg";
+import Modal from "../Modal/Modal";
+import CreateEntryForm from "../CreateEntryForm/CreateEntryForm";
 
 export default function Folder() {
   const dispatch = useAppDispatch();
-  const { words } = useAppSelector((state: RootState) => state.words);
-  console.log("🚀 ~ Folder ~ words:", words);
+  const navigate = useNavigate();
 
-  // const [words, setWords] = useState<WordProps[]>([]); // Ожидаем массив объектов WordProps
+  const [isAddEntryModalOpen, setIsAddEntryModalOpen] = useState(false);
+
+  const openAddEntryModal = () => setIsAddEntryModalOpen(true);
+  const closeAddEntryModal = () => setIsAddEntryModalOpen(false);
+  const { words } = useAppSelector((state) => state.words);
+
   const { folderName } = useParams<{ folderName: string }>();
 
   useEffect(() => {
-    dispatch(fetchCurrentUserWords);
-  }, [dispatch]);
+    dispatch(fetchCurrentUserWords(folderName));
+  }, [dispatch, folderName]);
 
   return (
     <>
-      <div>
-        <Link to='/folders'>Go back to All Folders</Link>
+      <div className={css.navWrapper}>
+        <button
+          className={css.goBack}
+          type='button'
+          onClick={() => navigate("/folders")}
+        >
+          <Svg size='small'>back</Svg>
+          To All Folders
+        </button>
+        <h2 className={css.folderName}>
+          Folder name: <span>{folderName}</span>
+        </h2>
       </div>
-      <hr />
-      <div>Folder name : {folderName}</div>
+      <div className={`${css.parrent}`}>
+        <button
+          type='button'
+          title='Press here to create new entry'
+          className={css.children}
+          onClick={openAddEntryModal}
+        >
+          <svg className={`${css.icon} ${css.iconAdd}`}>
+            <use href={`${sprite}#icon-add`}></use>
+          </svg>
+        </button>
+      </div>
 
       {words.length > 0 ? (
         <ul className={css.wordsWrapper}>
           {words.map((word: WordProps) => {
-            console.log("word in map", word);
             return (
               <Word key={word.id} word={word} /> // Передаем объект WordProps в компонент Word
             );
@@ -41,7 +66,15 @@ export default function Folder() {
       ) : (
         <CreateFirstWord folderName={folderName} />
       )}
-      <div></div>
+
+      {isAddEntryModalOpen && (
+        <Modal onClose={closeAddEntryModal}>
+          <CreateEntryForm
+            folderName={folderName}
+            onClose={closeAddEntryModal}
+          />
+        </Modal>
+      )}
     </>
   );
 }

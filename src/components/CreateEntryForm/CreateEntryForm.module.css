@@ -58,3 +58,40 @@
   padding: 5px 10px;
   font-size: 1.2rem;
 }
+
+/*  */
+
+.picker {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+
+  div {
+    position: relative;
+  }
+
+  img,
+  label {
+    display: block;
+    width: 200px;
+    height: 150px;
+
+    border-radius: var(--radii-input);
+
+    border: 2px solid var(--logo-color);
+    object-fit: cover;
+  }
+
+  svg {
+    position: absolute;
+    top: -140px;
+    right: 10px;
+    fill: red;
+    background-color: #ffffff91;
+    border-radius: var(--radii-input);
+    transition: linear 250ms;
+  }
+  svg:hover {
+    background-color: #ffffffce;
+  }
+}

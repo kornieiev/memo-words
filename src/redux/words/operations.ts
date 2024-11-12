@@ -9,21 +9,21 @@ const db = getFirestore(app);
  * * Возвращает массив всех words по всем folderName по всем пользователям
  * @returns
  */
-// const getAllDataFromFirebase = async () => {
-//   try {
-//     const querySnapshot = await getDocs(collection(db, "words"));
-//     const data = querySnapshot.docs.map((doc) => {
-//       return {
-//         id: doc.id,
-//         ...doc.data(),
-//       };
-//     });
-//     return data;
-//   } catch (error) {
-//     console.error("Ошибка при получении данных из Firestore:", error);
-//     throw error; // чтобы вызвать ошибку и обработать её при вызове функции
-//   }
-// };
+const getAllDataFromFirebase = async () => {
+  try {
+    const querySnapshot = await getDocs(collection(db, "words"));
+    const data = querySnapshot.docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data(),
+      };
+    });
+    return data;
+  } catch (error) {
+    console.error("Ошибка при получении данных из Firestore:", error);
+    throw error; // чтобы вызвать ошибку и обработать её при вызове функции
+  }
+};
 
 /**
  * * Возвращает массив всех words по всем folderName и авторизованному пользователю
@@ -66,7 +66,7 @@ interface WordProps {
  * @param folderName
  * @returns filteredData[]
  */
-const getDocumentsByUserAndId = async (folderName: string) => {
+const getDocumentsByUserAndFolderName = async (folderName: string) => {
   try {
     const data = await getCurrentUserWords();
     const filteredData = data.filter(
@@ -131,6 +131,6 @@ const createWord = async (wordData: WordProps) => {
 export {
   getAllDataFromFirebase,
   getCurrentUserWords,
-  getDocumentsByUserAndId,
+  getDocumentsByUserAndFolderName,
   createWord,
 };

@@ -3,6 +3,7 @@ import {
   createWord,
   getAllDataFromFirebase,
   getCurrentUserWords,
+  getDocumentsByUserAndFolderName,
 } from "./operations"; // функция для получения данных
 import { WordProps } from "../../types/words";
 
@@ -41,8 +42,8 @@ const initialState: WordsState = {
 // Async thunk for loading current user data:
 export const fetchCurrentUserWords = createAsyncThunk(
   "words/fetchCurrentUserWords",
-  async () => {
-    const data = await getCurrentUserWords();
+  async (folderName: string | undefined) => {
+    const data = await getDocumentsByUserAndFolderName(folderName);
     return data as WordProps[];
   }
 );
@@ -53,8 +54,6 @@ export const addNewWord = createAsyncThunk(
   async (wordData: WordProps, { rejectWithValue }) => {
     try {
       const response = await createWord(wordData);
-      console.log("response-addNewWord", response);
-
       return response;
     } catch (error: any) {
       // Возвращаем ошибку через rejectWithValue для обработки в extraReducers
@@ -94,9 +93,6 @@ const wordsSlice = createSlice({
       .addCase(
         addNewWord.fulfilled,
         (state, action: PayloadAction<WordProps>) => {
-          console.log(">action.payload>", action.payload);
-          console.log(">state.words>", state.words);
-
           state.loading = false;
           state.words.push(action.payload); // Добавляем новое слово в массив
         }
