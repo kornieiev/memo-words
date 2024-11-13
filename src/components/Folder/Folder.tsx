@@ -7,7 +7,6 @@ import CreateFirstWord from "../Create FirstWord/Create FirstWord";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchCurrentUserWords } from "../../redux/words/wordsSlice";
 import Svg from "../Svg/Svg";
-import sprite from "../../assets/sprite.svg";
 import Modal from "../Modal/Modal";
 import CreateEntryForm from "../CreateEntryForm/CreateEntryForm";
 
@@ -35,7 +34,7 @@ export default function Folder() {
           type='button'
           onClick={() => navigate("/folders")}
         >
-          <Svg size='small'>back</Svg>
+          <Svg size='1'>back</Svg>
           To All Folders
         </button>
         <h2 className={css.folderName}>
@@ -49,9 +48,7 @@ export default function Folder() {
           className={css.children}
           onClick={openAddEntryModal}
         >
-          <svg className={`${css.icon} ${css.iconAdd}`}>
-            <use href={`${sprite}#icon-add`}></use>
-          </svg>
+          <Svg size='2'>add</Svg>
         </button>
       </div>
 

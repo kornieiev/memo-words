@@ -79,18 +79,6 @@
   }
 }
 
-.icon {
-  width: 1.3rem;
-  height: 1.3rem;
-  fill: var(--logo-color);
-  stroke: black;
-  transition: width 0.3s ease, height 0.3s ease;
-}
-.icon:hover {
-  width: 1.5rem;
-  height: 1.5rem;
-}
-
 .iconAdd {
   width: 1.8rem;
   height: 1.8rem;

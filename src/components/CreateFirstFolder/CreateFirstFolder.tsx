@@ -1,9 +1,9 @@
 import { useState } from "react";
-import sprite from "../../assets/sprite.svg";
 import Button from "../Button/Button";
 import Modal from "../Modal/Modal";
 import css from "./CreateFirstFolder.module.css";
 import CreateFolderForm from "../CreateFolderForm/CreateFolderForm";
+import Svg from "../Svg/Svg";
 
 export default function CreateFirstFolder() {
   const [isAddFolderModalOpen, setAddFolderModalOpen] = useState(false);
@@ -16,9 +16,7 @@ export default function CreateFirstFolder() {
       <p>Please create your first folder to store your word collection</p>
 
       <Button action='confirm' onClick={openAddFolderModal}>
-        <svg className={css.icon}>
-          <use href={`${sprite}#icon-add`}></use>
-        </svg>
+        <Svg size='2'>add</Svg>
         Create new folder
       </Button>
       {isAddFolderModalOpen && (

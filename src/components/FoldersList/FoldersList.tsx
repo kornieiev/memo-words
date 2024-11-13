@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 
 import css from "./FoldersList.module.css";
-import sprite from "../../assets/sprite.svg";
 import { useState } from "react";
 import Modal from "../Modal/Modal";
 import CreateFolderForm from "../CreateFolderForm/CreateFolderForm";
+import Svg from "../Svg/Svg";
 
 interface FoldersData {
   id: string;
@@ -34,9 +34,7 @@ export default function FoldersList({ folders }: FoldersListProps) {
             className={css.children}
             onClick={openAddFolderModal}
           >
-            <svg className={`${css.icon} ${css.iconAdd}`}>
-              <use href={`${sprite}#icon-add`}></use>
-            </svg>
+            <Svg size='2'>add</Svg>
           </button>
         </div>
 
@@ -51,9 +49,9 @@ export default function FoldersList({ folders }: FoldersListProps) {
                 >
                   <div>
                     <p>{folder.folderName}</p>
-                    <svg className={css.icon}>
-                      <use href={`${sprite}#icon-config`}></use>
-                    </svg>
+                    <Svg className={css.icon} size='1.3'>
+                      config
+                    </Svg>
                   </div>
                 </li>
               );

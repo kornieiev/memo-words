@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import logo from "../../assets/logo-mini-optim.jpg";
-import sprite from "../../assets/sprite.svg";
-
 import css from "./Header.module.css";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import { RootState } from "../../redux/store";
 import { useAppSelector } from "../../redux/hooks";
 import { Link } from "react-router-dom";
+import Svg from "../Svg/Svg";
 
 export default function Header() {
   const modalRef = useRef(null); // ref to burger modal
@@ -63,18 +62,14 @@ export default function Header() {
         <>
           <div className={css.btnWrapper}>
             <button className={css.burgerBtn}>
-              <svg className={css.icon}>
-                <use href={`${sprite}#icon-user`}></use>
-              </svg>
+              <Svg size='2'>user</Svg>
             </button>
             <button
               className={`${css.burgerBtn}`}
               onClick={toggleBurgerMenu}
               ref={modalBtnCloseRef}
             >
-              <svg className={css.icon}>
-                <use href={`${sprite}#icon-burgerOpen`}></use>
-              </svg>
+              <Svg size='2'>burgerOpen</Svg>
             </button>
           </div>
           <div

@@ -16,9 +16,3 @@
     gap: 10px;
   }
 }
-
-.icon {
-  width: 36px;
-  height: 36px;
-  fill: var(--logo-color);
-}

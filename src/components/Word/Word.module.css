@@ -66,6 +66,14 @@
 
   text-align: right;
   color: var(--font-color-input);
+  outline: none;
+  cursor: pointer;
+
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.translation:hover {
+  background-color: #2980b9; /* Изменение фона при наведении */
+  transform: scale(1.02); /* Легкое увеличение при наведении */
 }
 
 .definition {
@@ -78,9 +86,13 @@
   max-width: 269px;
 
   margin-top: 0.8rem;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
 }
 
-/* .isNotShow{
+.hidedImg {
+  filter: blur(1px);
+}
 
-} */
+.blindEye {
+  height: 1.5rem;
+}

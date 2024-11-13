@@ -1,9 +1,9 @@
 import { useState } from "react";
-import sprite from "../../assets/sprite.svg";
 import Button from "../Button/Button";
 import Modal from "../Modal/Modal";
 import css from "./CreateFirstWord.module.css";
 import CreateEntryForm from "../CreateEntryForm/CreateEntryForm";
+import Svg from "../Svg/Svg";
 
 export default function CreateFirstWord({
   folderName,
@@ -23,9 +23,7 @@ export default function CreateFirstWord({
       <h2> This folder is empty yet</h2>
 
       <Button action='confirm' onClick={openAddFolderModal}>
-        <svg className={css.icon}>
-          <use href={`${sprite}#icon-add`}></use>
-        </svg>
+        <Svg size='2'>add</Svg>
         Create new entry
       </Button>
       <p>Please create your first entry in this word collection</p>

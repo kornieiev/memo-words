@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { WordProps } from "../../types/words";
 
-import hidedImg from "../../assets/hideImg.png";
+import hidedImg from "../../assets/masks-min.jpg";
 
 import css from "./Word.module.css";
 import Svg from "../Svg/Svg";
@@ -26,13 +26,24 @@ export default function Word({ word }: WordComponentProps) {
             className={`${css.translation} ${css.isNotShow}`}
             onClick={toggleIsNotShow}
           >
-            {isNotShow ? "*********" : word.translation}
+            {isNotShow ? (
+              <div className={css.blindEye}>
+                <Svg>blind_eye</Svg>
+              </div>
+            ) : (
+              word.translation
+            )}
           </p>
         </div>
 
         <div className={css.secondaryWrapper}>
           {isNotShow ? (
-            <img src={hidedImg} alt='hided word' onClick={toggleIsNotShow} />
+            <img
+              className={css.hidedImg}
+              src={hidedImg}
+              alt='hided word'
+              onClick={toggleIsNotShow}
+            />
           ) : (
             <img
               src={word.imageLink}
@@ -43,24 +54,22 @@ export default function Word({ word }: WordComponentProps) {
 
           <div className={css.statusWrapper}>
             <div>
-              <Svg size='medium' status color='#05FF1F'>
+              <Svg size='2' color='#05FF1F'>
                 already
               </Svg>
             </div>
             <div>
-              <Svg size='medium' color='#05FF1F'>
-                repeat
-              </Svg>
+              <Svg size='2'>repeat</Svg>
             </div>
             <div>
-              <Svg size='medium' status color='#FF0000'>
+              <Svg size='2' color='#FF0000'>
                 hardWord
               </Svg>
             </div>
           </div>
         </div>
         <p className={css.definition} onClick={toggleIsNotShow}>
-          {isNotShow ? "show definition" : word.definition}
+          {isNotShow ? "Click to show definition" : word.definition}
         </p>
       </li>
     );
