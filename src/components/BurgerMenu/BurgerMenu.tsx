@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
-import sprite from "../../assets/sprite.svg";
 import { logoutUser } from "../../redux/auth/authSlice";
 import { useAppDispatch } from "../../redux/hooks";
 
 import css from "./BurgerMenu.module.css";
+import Svg from "../Svg/Svg";
 
 interface BurgerMenuProps {
   toggle: () => void;
@@ -29,9 +29,7 @@ export default function BurgerMenu({ toggle }: BurgerMenuProps) {
     <div className={css.burgerMenuContentWrapper}>
       <div className={css.btnWrapper}>
         <button className={`${css.burgerBtn}`} onClick={toggle}>
-          <svg className={css.icon}>
-            <use href={`${sprite}#icon-burgerClose`}></use>
-          </svg>
+          <Svg size='2'>burgerClose</Svg>
         </button>
       </div>
 

@@ -1,5 +1,11 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { getCurrentUserFolders, createFolder } from "./operations"; // функция для получения данных
+import {
+  getCurrentUserFolders,
+  createFolder,
+  deleteFolderFromDB,
+  updateDocumentFolder,
+} from "./operations"; // функция для получения данных
+import { FolderProps } from "../../types/words";
 
 interface FoldersData {
   id: string;
@@ -48,6 +54,34 @@ export const createNewFolder = createAsyncThunk(
   }
 );
 
+export const deleteFolder = createAsyncThunk(
+  "folders/deleteFolder",
+  async (folderId: string, { rejectWithValue }) => {
+    try {
+      const data = await deleteFolderFromDB(folderId);
+      if (data) {
+        return folderId;
+      }
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const editFolder = createAsyncThunk(
+  "folders/editFolder",
+  async (changedData: FolderProps, { rejectWithValue }) => {
+    try {
+      const data = await updateDocumentFolder(changedData);
+      if (data) {
+        return changedData;
+      }
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const foldersSlice = createSlice({
   name: "folders",
   initialState,
@@ -70,6 +104,7 @@ const foldersSlice = createSlice({
         state.loading = false;
         state.error = action.error.message || "Failed to load words";
       })
+
       // createNewFolder
       .addCase(createNewFolder.pending, (state) => {
         state.loading = true;
@@ -83,6 +118,51 @@ const foldersSlice = createSlice({
         }
       })
       .addCase(createNewFolder.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "Failed to create new folder";
+      })
+
+      // deleteFolder
+      .addCase(deleteFolder.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteFolder.fulfilled, (state, action) => {
+        state.loading = false;
+        if (action.payload) {
+          state.folders = state.folders.filter(
+            (folder) => folder.id !== action.payload
+          );
+        }
+      })
+      .addCase(deleteFolder.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "Failed to create new folder";
+      })
+
+      // editFolder
+      .addCase(editFolder.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(
+        editFolder.fulfilled,
+        (state, action: PayloadAction<FolderProps>) => {
+          state.loading = false;
+          console.log("action.payload", action.payload);
+
+          const { id } = action.payload;
+          const index = state.folders.findIndex((item) => item.id === id);
+
+          if (index !== -1) {
+            state.folders[index] = {
+              ...state.folders[index],
+              ...action.payload,
+            };
+          }
+        }
+      )
+      .addCase(editFolder.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Failed to create new folder";
       });

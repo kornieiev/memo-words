@@ -38,16 +38,10 @@
     border-radius: var(--radii-input);
   }
 
-  div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.3rem 0.6rem;
-  }
-
   p {
     color: var(--font-color-input);
     font-family: var(--font-family-root);
+    padding: 0.3rem 0.6rem;
   }
 
   @media screen and (min-width: 700px) {
@@ -60,7 +54,18 @@
   }
 }
 
-.parrent {
+.folderWrapper {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+}
+
+.folderTitle {
+  grid-column: 1 / 9;
+  display: flex;
+  align-items: center;
+}
+
+.parent {
   position: relative;
 }
 
@@ -77,18 +82,6 @@
     top: 20px;
     right: 200px;
   }
-}
-
-.icon {
-  width: 1.3rem;
-  height: 1.3rem;
-  fill: var(--logo-color);
-  stroke: black;
-  transition: width 0.3s ease, height 0.3s ease;
-}
-.icon:hover {
-  width: 1.5rem;
-  height: 1.5rem;
 }
 
 .iconAdd {
@@ -116,4 +109,24 @@
     width: 3.5rem;
     height: 3.5rem;
   }
+}
+
+.icon {
+  background-color: var(--bg-modal); /* Изменение фона при наведении */
+  stroke: var(--bg-color-second);
+  cursor: pointer;
+  border-radius: 50px;
+  padding: 5px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  margin-left: auto;
+  margin-right: 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.icon:hover {
+  background-color: #2980b9; /* Изменение фона при наведении */
+  transform: scale(1.1); /* Легкое увеличение при наведении */
 }

@@ -1,26 +1,30 @@
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 
-import css from "./CreateEntryForm.module.css";
+import css from "./ChangeEntryForm.module.css";
 import Button from "../Button/Button";
 import { useAppDispatch } from "../../redux/hooks";
-import { addNewWord } from "../../redux/words/wordsSlice";
+import { deleteWord, updateWord } from "../../redux/words/wordsSlice";
 import { useState } from "react";
 import Svg from "../Svg/Svg";
 import { handleFileUpload } from "../../services/aws";
+import { WordProps } from "../../types/words";
 
-interface CreateEntryFormProps {
+interface ChangeEntryFormProps {
   onClose: () => void;
   folderName: string | undefined;
+  wordData: WordProps | undefined;
 }
 
-export default function CreateEntryForm({
+export default function ChangeEntryForm({
   onClose,
   folderName,
-}: CreateEntryFormProps) {
+  wordData,
+}: ChangeEntryFormProps) {
+  console.log("wordData", wordData);
   const dispatch = useAppDispatch();
 
-  const [pickedImage, setPickedImage] = useState(null);
+  const [pickedImage, setPickedImage] = useState(wordData.imageLink);
   const [imgFile, setImgFile] = useState(null);
 
   const handleImageAdd = (e) => {
@@ -42,18 +46,25 @@ export default function CreateEntryForm({
     setPickedImage(null);
   };
 
-  const initialValues = {
+  let initialValues = {
     word: "",
     translation: "",
     definition: "",
-    loadImage: null,
+    loadImage: "",
   };
+  if (wordData) {
+    initialValues = {
+      word: wordData.word || "",
+      translation: wordData.translation || "",
+      definition: wordData.definition || "",
+      loadImage: wordData.imageLink || "",
+    };
+  }
 
   const validationSchema = Yup.object({
     word: Yup.string().required("Enter word"),
     translation: Yup.string().required("Enter translation"),
     definition: Yup.string(),
-    // loadImage: Yup.string(),
   });
 
   interface valuesProps {
@@ -67,21 +78,27 @@ export default function CreateEntryForm({
     values: valuesProps,
     { setSubmitting }: FormikHelpers<valuesProps>
   ) => {
-    const { word, translation, definition, loadImage } = values;
+    const { word, translation, definition } = values;
 
-    const linkToImg = await handleFileUpload(imgFile);
+    let linkToImg = await handleFileUpload(imgFile);
+
+    if (!linkToImg) {
+      linkToImg = wordData?.imageLink;
+    }
 
     setSubmitting(false);
 
     try {
       dispatch(
-        addNewWord({
+        updateWord({
+          id: wordData?.id,
           folder: folderName,
           word,
           translation,
           definition,
-          imageLink: linkToImg,
-          learningStatus: "3",
+          imageLink: linkToImg || "",
+          learningStatus: wordData?.learningStatus,
+          userId: wordData?.id,
         })
       );
     } catch (error: unknown) {
@@ -95,6 +112,14 @@ export default function CreateEntryForm({
     onClose();
   };
 
+  function onDeleteHandleClick() {
+    if (wordData?.id) {
+      dispatch(deleteWord(wordData?.id));
+    }
+
+    onClose();
+  }
+
   return (
     <div>
       <Formik
@@ -105,6 +130,8 @@ export default function CreateEntryForm({
         {({ isSubmitting }) => (
           <Form>
             <div className={css.formWrapper}>
+              <h3>Change / Delete the word</h3>
+
               <div className={css.inputWrapper}>
                 <label className={css.inputTitle} htmlFor='word'>
                   Word/Phrase:
@@ -189,6 +216,14 @@ export default function CreateEntryForm({
               </Button>
               <Button action='decline' onClick={onClose}>
                 Cancel
+              </Button>
+
+              <Button
+                action='decline'
+                type='button'
+                onClick={onDeleteHandleClick}
+              >
+                Delete
               </Button>
             </div>
           </Form>

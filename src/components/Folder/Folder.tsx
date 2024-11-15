@@ -7,7 +7,6 @@ import CreateFirstWord from "../Create FirstWord/Create FirstWord";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchCurrentUserWords } from "../../redux/words/wordsSlice";
 import Svg from "../Svg/Svg";
-import sprite from "../../assets/sprite.svg";
 import Modal from "../Modal/Modal";
 import CreateEntryForm from "../CreateEntryForm/CreateEntryForm";
 
@@ -21,7 +20,10 @@ export default function Folder() {
   const closeAddEntryModal = () => setIsAddEntryModalOpen(false);
   const { words } = useAppSelector((state) => state.words);
 
-  const { folderName } = useParams<{ folderName: string }>();
+  let { folderName } = useParams<{ folderName: string }>();
+  if (folderName && folderName.length > 6 && window.innerWidth < 1240) {
+    folderName = folderName?.slice(0, 5) + "...";
+  }
 
   useEffect(() => {
     dispatch(fetchCurrentUserWords(folderName));
@@ -35,23 +37,21 @@ export default function Folder() {
           type='button'
           onClick={() => navigate("/folders")}
         >
-          <Svg size='small'>back</Svg>
+          <Svg size='1'>back</Svg>
           To All Folders
         </button>
         <h2 className={css.folderName}>
           Folder name: <span>{folderName}</span>
         </h2>
       </div>
-      <div className={`${css.parrent}`}>
+      <div className={`${css.parent}`}>
         <button
           type='button'
           title='Press here to create new entry'
           className={css.children}
           onClick={openAddEntryModal}
         >
-          <svg className={`${css.icon} ${css.iconAdd}`}>
-            <use href={`${sprite}#icon-add`}></use>
-          </svg>
+          <Svg size='2'>add</Svg>
         </button>
       </div>
 

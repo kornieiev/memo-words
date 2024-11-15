@@ -1,19 +1,8 @@
-.iconSmall {
-  width: 1rem;
-  height: 1rem;
-  fill: var(--logo-color);
+.icon {
+  cursor: pointer;
+  display: inline-block;
+  transition: transform 0.3s ease;
 }
-.iconSmall:hover {
-  width: 1.1rem;
-  height: 1.1rem;
-}
-
-.iconMedium {
-  width: 2rem;
-  height: 2rem;
-  fill: var(--logo-color);
-}
-.iconMedium:hover {
-  width: 2.2rem;
-  height: 2.2rem;
+.icon:hover {
+  transform: scale(1.1);
 }

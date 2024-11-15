@@ -14,13 +14,6 @@
   /* padding: 1rem; */
 }
 
-.icon {
-  width: 30px;
-  height: 30px;
-  fill: var(--logo-color);
-  margin: 10px;
-}
-
 .burgerNav li {
   /* text-decoration: none; */
   list-style: none;

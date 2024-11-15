@@ -19,3 +19,9 @@ export interface WordProps {
   userId?: string;
   word?: string;
 }
+
+export interface FolderProps {
+  id: string;
+  folderName: string;
+  folderDescription: string;
+}

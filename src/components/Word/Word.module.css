@@ -32,14 +32,25 @@
   }
   @media screen and (min-width: 700px) {
     flex-direction: row;
-    border: 1px solid var(--btn-font-color);
+    border: 2px solid var(--btn-font-color);
+    border-radius: var(--radii-main);
+    padding: 20px 20px;
   }
 }
 
 .statusWrapper {
   width: 2.5rem;
   div {
-    height: 33%;
+    display: flex;
+    height: calc(110px / 3);
+    width: calc(110px / 3);
+    align-items: center;
+    transition: background-color 0.3s ease, border-radius 0.2s ease;
+  }
+  div:hover {
+    background-color: rgba(252, 236, 190, 0.2);
+    border-radius: 50px;
+    backdrop-filter: blur(5px);
   }
 }
 
@@ -59,6 +70,7 @@
   background-color: var(--input-second-bg-color);
   border-radius: var(--radii-input);
   padding: 0.2rem 0.6rem;
+  width: 260px;
 
   margin-left: 1rem;
   margin-bottom: 1rem;
@@ -66,6 +78,14 @@
 
   text-align: right;
   color: var(--font-color-input);
+  outline: none;
+  cursor: pointer;
+
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.translation:hover {
+  background-color: #2980b9; /* Изменение фона при наведении */
+  transform: scale(1.02); /* Легкое увеличение при наведении */
 }
 
 .definition {
@@ -78,9 +98,60 @@
   max-width: 269px;
 
   margin-top: 0.8rem;
-  text-transform: capitalize;
+  cursor: pointer;
+}
+.definition:hover {
+  background-color: #2980b9; /* Изменение фона при наведении */
+  transform: scale(1.02); /* Легкое увеличение при наведении */
 }
 
-/* .isNotShow{
+.hidedImg {
+  filter: blur(1px);
+}
 
-} */
+.blindEye {
+  height: 1.5rem;
+}
+
+.parent {
+  position: relative;
+}
+
+.children {
+  position: absolute;
+  bottom: 15px;
+  right: 75px;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.2);
+
+  border-radius: var(--radii-main);
+  transition: linear 250ms;
+  padding: 0.3rem;
+
+  transition: transform 0.3s ease;
+}
+.children:hover {
+  transform: scale(1.1);
+}
+
+.blind_eye {
+  margin-left: 1rem;
+  border-radius: var(--radii-input);
+  border: 1px solid var(--btn-font-color);
+  width: 200px;
+  height: 170px;
+  object-fit: cover;
+  align-items: center;
+  cursor: pointer;
+}
+.blind_eye:hover {
+  background-color: #2980b9; /* Изменение фона при наведении */
+  transform: scale(1.02); /* Легкое увеличение при наведении */
+}
+
+.learningStatus {
+  border: 2px solid var(--btn-font-color);
+  border-radius: var(--radii-main);
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 5px;
+}

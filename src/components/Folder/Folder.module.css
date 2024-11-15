@@ -49,7 +49,7 @@
   padding: 0;
   line-height: 1.4rem;
   span {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-family: var(--font-family-logo);
     color: var(--btn-font-color);
   }
@@ -72,60 +72,21 @@
   }
 }
 
-.parrent {
+.parent {
   position: relative;
 }
 
 .children {
   position: absolute;
   top: -67px;
-  right: 130px;
+  right: 125px;
 
   @media screen and (min-width: 700px) {
     top: -80px;
-    right: 220px;
+    right: 320px;
   }
   @media screen and (min-width: 1240px) {
-    top: -85px;
-    right: 380px;
-  }
-}
-
-.icon {
-  width: 1.3rem;
-  height: 1.3rem;
-  fill: var(--logo-color);
-  stroke: black;
-  transition: width 0.3s ease, height 0.3s ease;
-}
-.icon:hover {
-  width: 1.5rem;
-  height: 1.5rem;
-}
-
-.iconAdd {
-  width: 1.8rem;
-  height: 1.8rem;
-
-  @media screen and (min-width: 700px) {
-    width: 2.3rem;
-    height: 2.3rem;
-  }
-  @media screen and (min-width: 1240px) {
-    width: 3rem;
-    height: 3rem;
-  }
-}
-.iconAdd:hover {
-  width: 2rem;
-  height: 2rem;
-
-  @media screen and (min-width: 700px) {
-    width: 2.5rem;
-    height: 2.5rem;
-  }
-  @media screen and (min-width: 1240px) {
-    width: 3.5rem;
-    height: 3.5rem;
+    top: -65px;
+    right: 500px;
   }
 }

@@ -3,30 +3,29 @@ import css from "./Svg.module.css";
 
 interface SvgProps {
   children: string;
-  size: "small" | "medium";
-  status?: boolean;
+  size?: string;
   color?: string;
   onClick?: () => void;
+  className?: string;
 }
 
-export default function Svg({ children, size, status, color }: SvgProps) {
-  function selectedStatus(status) {}
+export default function Svg({
+  children,
+  size = "1rem",
+  color = "#fce2be",
+}: SvgProps) {
   return (
     <>
-      {status ? (
-        <svg
-          className={size === "small" ? css.iconSmall : css.iconMedium}
-          style={{
-            fill: `${color}`,
-          }}
-        >
-          <use href={`${sprite}#icon-${children}`}></use>
-        </svg>
-      ) : (
-        <svg className={size === "small" ? css.iconSmall : css.iconMedium}>
-          <use href={`${sprite}#icon-${children}`}></use>
-        </svg>
-      )}
+      <svg
+        className={css.icon}
+        style={{
+          fill: `${color}`,
+          width: `${size}rem`,
+          height: `${size}rem`,
+        }}
+      >
+        <use href={`${sprite}#icon-${children}`}></use>
+      </svg>
     </>
   );
 }
