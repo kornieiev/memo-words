@@ -1,7 +1,17 @@
 import { app, auth } from "../../services/firebase";
-import { collection, getDocs, query, where, addDoc } from "firebase/firestore";
-import { getFirestore } from "firebase/firestore";
-// import { WordProps } from "../../types/words";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  addDoc,
+  getFirestore,
+  updateDoc,
+  doc,
+  setDoc,
+  getDoc,
+  deleteDoc,
+} from "firebase/firestore";
 
 const db = getFirestore(app);
 
@@ -61,6 +71,7 @@ interface WordProps {
 }
 
 /**
+ * *
  * * Создает запрос по идентификатору folderName за данными на firebase с фильтрацией по авторизованному пользователю
  * * Возвращает массив words по искомой folderName и авторизованному пользователю
  * @param folderName
@@ -80,11 +91,11 @@ const getDocumentsByUserAndFolderName = async (folderName: string) => {
 };
 
 /**
+ * * Создает новое слово
  * * Функция для создания новой записи в коллекции "words" с привязкой к авторизованному пользователю и проверкой не было ли данное word создано ранее
  * @param wordData
  */
 const createWord = async (wordData: WordProps) => {
-  console.log("!!wordData from operation createWord", wordData);
   const userId = auth.currentUser?.uid;
 
   if (!userId) {
@@ -128,9 +139,85 @@ const createWord = async (wordData: WordProps) => {
   }
 };
 
+/**
+ * * Обновляет слово
+ * * Отправляет запрос по идентификатору changedData.id для изменения данных на firebase
+ * @param changedData
+ * @returns changedData
+ */
+const updateDocumentWord = async (changedData: object) => {
+  try {
+    // Получаем текущие данные документа
+    const docRef = doc(db, "words", changedData.id);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      // Извлекаем текущее значение поля userId
+      const { userId } = docSnap.data();
+
+      // Обновляем документ, исключая userId
+      await setDoc(docRef, { ...changedData, userId }, { merge: false });
+      console.log("Документ успешно обновлен, кроме userId");
+      return changedData;
+    } else {
+      console.log("Документ не найден");
+    }
+  } catch (error) {
+    console.error("Ошибка при обновлении документа:", error);
+  }
+};
+
+/**
+ * * Удаляет слово
+ * * Отправляет запрос по идентификатору id для удаления данных на firebase
+ * @param collectionName
+ * @param documentId
+ */
+const deleteDocumentWord = async (id: string) => {
+  try {
+    const docRef = doc(db, "words", id);
+    await deleteDoc(docRef);
+    console.log("Документ успешно удален");
+    return id;
+  } catch (error) {
+    console.error("Ошибка при удалении документа:", error);
+  }
+};
+
+/**
+ * * Меняет статус слова
+ * * Отправляет запрос по идентификатору id для изменения поля  данных на firebase
+ * @param id
+ * @param newStatus
+ * @returns
+ */
+const updateDocumentWordLearningStatus = async (
+  id: string,
+  newStatus: string
+) => {
+  // console.log("BEFORE::: id -", id, "newStatus -", newStatus);
+
+  try {
+    const docRef = doc(db, "words", id);
+
+    // Обновление одного поля
+    await updateDoc(docRef, {
+      learningStatus: newStatus,
+    });
+    // console.log(`Поле learningStatus обновлено на значение:`, newStatus);
+    // console.log("id -", id, "newStatus -", newStatus);
+    return { id, newStatus };
+  } catch (error) {
+    console.error("Ошибка при обновлении поля документа: ", error);
+  }
+};
+
 export {
   getAllDataFromFirebase,
   getCurrentUserWords,
   getDocumentsByUserAndFolderName,
   createWord,
+  updateDocumentWord,
+  deleteDocumentWord,
+  updateDocumentWordLearningStatus,
 };

@@ -8,13 +8,15 @@ import {
   doc,
   getDoc,
   deleteDoc,
+  setDoc,
 } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
+import { FolderProps } from "../../types/words";
 
 const db = getFirestore(app);
 
 /**
- * Возвращает список папок созданных авторизованным пользователем
+ * * Возвращает список папок созданных авторизованным пользователем
  * @returns folders[]
  */
 const getCurrentUserFolders = async () => {
@@ -38,7 +40,7 @@ const getCurrentUserFolders = async () => {
 };
 
 /**
- * Создает папку с именем и описанием, предварительно проверив, не было ли такой папки в БД создано ранее.
+ * * Создает папку с именем и описанием, предварительно проверив, не было ли такой папки в БД создано ранее.
  * Папка создается только с привязкой к авторизованному пользователю
  * @param folderName
  * @param folderDescription
@@ -80,10 +82,10 @@ const createFolder = async (folderName: string, folderDescription: string) => {
 };
 
 /**
- * Удаляет папку по идентификатору, если она принадлежит авторизованному пользователю
+ * * Удаляет папку по идентификатору, если она принадлежит авторизованному пользователю
  * @param folderId
  */
-const deleteFolder = async (folderId: string) => {
+const deleteFolderFromDB = async (folderId: string) => {
   const userId = auth.currentUser?.uid;
 
   if (!userId) throw new Error("User is not authenticated");
@@ -105,11 +107,46 @@ const deleteFolder = async (folderId: string) => {
 
     // Удаление папки
     await deleteDoc(folderRef);
-    console.log("Folder deleted successfully");
+    console.log(`Folder ${folderId} deleted successfully`);
+
+    return folderId;
   } catch (error) {
     console.error("Error deleting folder: ", error);
     throw error;
   }
 };
 
-export { getCurrentUserFolders, createFolder, deleteFolder };
+/**
+ * * Обновляет папку
+ * * Отправляет запрос по идентификатору changedData.id для изменения данных на firebase
+ * @param changedData
+ * @returns changedData
+ */
+const updateDocumentFolder = async (changedData: FolderProps) => {
+  try {
+    // Получаем текущие данные документа
+    const docRef = doc(db, "folders", changedData.id);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      // Извлекаем текущее значение поля userId
+      const { userId } = docSnap.data();
+
+      // Обновляем документ, исключая userId
+      await setDoc(docRef, { ...changedData, userId }, { merge: false });
+      console.log("Документ успешно обновлен, кроме userId");
+      return changedData;
+    } else {
+      console.log("Документ не найден");
+    }
+  } catch (error) {
+    console.error("Ошибка при обновлении документа:", error);
+  }
+};
+
+export {
+  getCurrentUserFolders,
+  createFolder,
+  deleteFolderFromDB,
+  updateDocumentFolder,
+};

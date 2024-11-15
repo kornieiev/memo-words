@@ -20,7 +20,10 @@ export default function Folder() {
   const closeAddEntryModal = () => setIsAddEntryModalOpen(false);
   const { words } = useAppSelector((state) => state.words);
 
-  const { folderName } = useParams<{ folderName: string }>();
+  let { folderName } = useParams<{ folderName: string }>();
+  if (folderName && folderName.length > 6 && window.innerWidth < 1240) {
+    folderName = folderName?.slice(0, 5) + "...";
+  }
 
   useEffect(() => {
     dispatch(fetchCurrentUserWords(folderName));
@@ -41,7 +44,7 @@ export default function Folder() {
           Folder name: <span>{folderName}</span>
         </h2>
       </div>
-      <div className={`${css.parrent}`}>
+      <div className={`${css.parent}`}>
         <button
           type='button'
           title='Press here to create new entry'

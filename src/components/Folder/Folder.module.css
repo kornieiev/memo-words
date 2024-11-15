@@ -49,7 +49,7 @@
   padding: 0;
   line-height: 1.4rem;
   span {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-family: var(--font-family-logo);
     color: var(--btn-font-color);
   }
@@ -72,7 +72,7 @@
   }
 }
 
-.parrent {
+.parent {
   position: relative;
 }
 
@@ -83,10 +83,10 @@
 
   @media screen and (min-width: 700px) {
     top: -80px;
-    right: 220px;
+    right: 320px;
   }
   @media screen and (min-width: 1240px) {
-    top: -85px;
-    right: 380px;
+    top: -65px;
+    right: 500px;
   }
 }
